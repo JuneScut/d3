@@ -4,3 +4,13 @@
   left: 10px;
   z-index: 9999;
 }
+.tooltip {
+  position: absolute;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  pointer-events: none;
+}
