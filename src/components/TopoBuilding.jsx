@@ -2,11 +2,63 @@ import * as d3 from "d3";
 import building from "../assets/buildings.json";
 import { useEffect } from "react";
 import * as topojson from "topojson";
-import { buildingTypeColors, width, height, margin } from "../utils/constant";
+import {
+  buildingTypeColors,
+  width,
+  height,
+  margin,
+  containerHeight,
+  containerWidth,
+  xScale,
+  yScale,
+} from "../utils/constant";
 
+const mapExtent = { minX: -5000, minY: -200, maxX: 2800, maxY: 8000 };
+const viewExtent = {
+  minX: -5000,
+  minY: -400,
+  maxX: 3000,
+  maxY: 8200,
+};
+const gridLines = [];
+for (let x = mapExtent.minX; x <= mapExtent.maxX; x += 200) {
+  gridLines.push([
+    [x, mapExtent.minY],
+    [x, mapExtent.maxY],
+  ]);
+}
+for (let y = mapExtent.minY; y <= mapExtent.maxY; y += 200) {
+  gridLines.push([
+    [mapExtent.minX, y],
+    [mapExtent.maxX, y],
+  ]);
+}
+
+const xLabels = [];
+for (let x = mapExtent.minX; x <= mapExtent.maxX; x += 1000) {
+  xLabels.push([
+    [x, mapExtent.minY],
+    [x, mapExtent.maxY],
+  ]);
+}
+
+const yLabels = [];
+for (let y = 0; y <= mapExtent.maxY; y += 1000) {
+  yLabels.push([
+    [mapExtent.minX, y],
+    [mapExtent.maxX, y],
+  ]);
+}
+
+const transfromLinesCord = ([v1, v2]) => {
+  return [
+    [xScale(v1[0]), yScale(v1[1])],
+    [xScale(v2[0]), yScale(v2[1])],
+  ];
+};
+
+// TODO: 需要统一配置坐标
 const TopoBuilding = () => {
-  const containerWidth = width + margin.left + margin.right;
-  const containerHeight = height + margin.top + margin.bottm;
   const addToolTip = () => {
     const tooltip = d3
       .select("#map-container")
@@ -18,6 +70,7 @@ const TopoBuilding = () => {
       .selectAll(".building")
       .on("mouseover", function (d) {
         const data = d.srcElement.__data__;
+        console.log(data);
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip
           .html(
@@ -35,7 +88,7 @@ const TopoBuilding = () => {
     const svg = d3.select("#geo");
     const zoom = d3
       .zoom()
-      .wheelDelta(0)
+      .wheelDelta(0) // 禁止鼠标滑动
       .scaleExtent([0.5, 10]) // 设置缩放范围
       .translateExtent([
         [-width / 2, -height / 2],
@@ -79,9 +132,9 @@ const TopoBuilding = () => {
       .append("svg")
       .attr("width", containerWidth)
       .attr("height", containerHeight)
+      .style("padding", "30px")
       .attr("id", "geo")
-      .attr("viewbox", `0 0 ${width} ${height}`)
-      .attr("preserveAspectRatio", "xMidYMid meet");
+      .attr("viewbox", `-60 -60 ${width} ${height}`);
 
     const geoData = topojson.feature(building, building.objects.buildings);
     // We don't need projection, so use geoIdentity
@@ -89,7 +142,19 @@ const TopoBuilding = () => {
     const projection = d3
       .geoIdentity()
       .reflectY(true)
-      .fitSize([width, height], geoData);
+      // .fitSize([width, height], geoData);
+      .fitSize([width, height], {
+        type: "Polygon",
+        coordinates: [
+          [
+            [viewExtent.minX, viewExtent.minY],
+            [viewExtent.minX, viewExtent.maxY],
+            [viewExtent.maxX, viewExtent.maxY],
+            [viewExtent.maxX, viewExtent.minY],
+            [viewExtent.minX, viewExtent.minY],
+          ],
+        ],
+      });
     let path = d3.geoPath(projection);
 
     svg
@@ -111,51 +176,60 @@ const TopoBuilding = () => {
       })
       .attr("stroke-width", 1)
       .attr("class", "building");
-    // .attr("transform", "scale(1, -1)");
 
-    // 坐标轴
-    // 定义 x 轴比例尺和坐标轴
-    const xScale = d3
-      .scaleLinear()
-      .domain([-5000, 2800])
-      .range([margin.left, width - margin.right]);
-    const xAxis = d3.axisBottom(xScale);
-    // 定义 y 轴比例尺和坐标轴
-    const yScale = d3
-      .scaleLinear()
-      .domain([-200, 8000])
-      .range([height - margin.top, margin.bottm]);
-    const yAxis = d3.axisRight(yScale);
-    // 添加 x 轴
-    svg
-      .append("g")
-      .attr("transform", `translate(0, ${height + margin.bottm})`)
-      .call(xAxis);
-    // 添加 y 轴
-    svg.append("g").attr("transform", `translate(${width}, 0)`).call(yAxis);
-    // 添加网格线
+    const grids = gridLines.map(transfromLinesCord);
+
     svg
       .append("g")
       .selectAll("line")
-      .data(xScale.ticks())
-      .join("line")
-      .attr("x1", (d) => xScale(d))
-      .attr("x2", (d) => xScale(d))
-      .attr("y1", 0)
-      .attr("y2", height)
-      .attr("stroke", "#ccc")
-      .attr("stroke-width", 1);
-    svg
-      .append("g")
+      .data(grids)
+      .enter()
+      .append("line")
+      .attr("x1", (d) => d[0][0])
+      .attr("y1", (d) => d[0][1])
+      .attr("x2", (d) => d[1][0])
+      .attr("y2", (d) => d[1][1])
+      .attr("stroke-width", 0.2)
+      .attr("stroke", "#ccc");
+
+    let labels = xLabels.concat(yLabels);
+    labels = labels.map(transfromLinesCord);
+    const lineGroup = svg.append("g");
+    lineGroup
       .selectAll("line")
-      .data(yScale.ticks())
-      .join("line")
-      .attr("x1", 0)
-      .attr("x2", width)
-      .attr("y1", (d) => yScale(d))
-      .attr("y2", (d) => yScale(d))
-      .attr("stroke", "#ccc")
-      .attr("stroke-width", 1);
+      .data(labels)
+      .enter()
+      .append("line")
+      .attr("x1", (d) => d[0][0])
+      .attr("y1", (d) => d[0][1])
+      .attr("x2", (d) => d[1][0])
+      .attr("y2", (d) => d[1][1])
+      .attr("stroke-width", 0.2)
+      .attr("stroke", "black");
+
+    lineGroup
+      .selectAll("text.xLabel")
+      .data(xLabels)
+      .enter()
+      .append("text")
+      .attr("class", "xLabel")
+      .style("font-size", "12px")
+      .attr("x", (d) => xScale(d[0][0]))
+      .attr("y", (d) => yScale(d[0][1]) + 20)
+      .text((d) => d[0][0])
+      .attr("text-anchor", "middle");
+
+    lineGroup
+      .selectAll("text.yLabel")
+      .data(yLabels)
+      .enter()
+      .append("text")
+      .attr("class", "yLabel")
+      .style("font-size", "12px")
+      .attr("x", (d) => xScale(d[1][0]) + 30)
+      .attr("y", (d) => yScale(d[1][1]))
+      .text((d) => d[0][1])
+      .attr("text-anchor", "middle");
   };
 
   useEffect(() => {
@@ -166,6 +240,7 @@ const TopoBuilding = () => {
       addZoomBar();
     }
   }, []);
+
   return (
     <>
       <div id="zoom-bar">
@@ -175,8 +250,8 @@ const TopoBuilding = () => {
       <div
         id="map-container"
         style={{
-          width: containerWidth,
-          height: containerHeight,
+          width: containerWidth + margin.left + margin.right,
+          height: containerHeight + margin.top + margin.bottm,
           overflow: "hidden",
           border: "1px solid #ccc",
         }}
