@@ -7,7 +7,7 @@ export const buildingTypeColors = {
   none: "none",
 };
 export const width = 800,
-  height = 600;
+  height = 860;
 export const margin = {
   top: 30,
   bottm: 30,
@@ -22,5 +22,19 @@ export const SVG_IDS = {
   REGION: "region-map",
 };
 
-export const xScale = d3.scaleLinear().domain([-5000, 3000]).range([0, width]);
-export const yScale = d3.scaleLinear().domain([8000, -400]).range([0, height]);
+export const mapExtent = { minX: -5000, minY: -200, maxX: 2800, maxY: 8000 };
+export const viewExtent = {
+  minX: -5000,
+  minY: -400,
+  maxX: 3000,
+  maxY: 8200,
+};
+
+export const xScale = d3
+  .scaleLinear()
+  .domain([viewExtent.minX, viewExtent.maxX])
+  .range([0, width]);
+export const yScale = d3
+  .scaleLinear()
+  .domain([viewExtent.maxY, viewExtent.minY])
+  .range([0, height]);

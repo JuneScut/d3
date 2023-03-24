@@ -1,6 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
-import { containerHeight, containerWidth, SVG_IDS } from "../utils/constant";
+import {
+  containerHeight,
+  containerWidth,
+  mapExtent,
+  SVG_IDS,
+  viewExtent,
+} from "../utils/constant";
 import * as d3 from "d3";
 import * as topojson from "topojson";
 import building from "../assets/buildings.json";
@@ -11,6 +17,7 @@ import apartmentLocations from "../assets/locations/apartmentLocations.json";
 import pubLocations from "../assets/locations/pubLocations.json";
 import restaurantLocations from "../assets/locations/restaurantLocations.json";
 import schoolLocations from "../assets/locations/schoolLocations.json";
+import { borderObj } from "../utils/utils";
 
 const pointsOrig = spaceLocations
   .map(([x, y]) => [x, y, "spa"])
@@ -49,24 +56,23 @@ const RegionMap = () => {
     let svg = d3
       .select(`#${SVG_IDS.REGION}-container`)
       .append("svg")
-      .attr("id", SVG_IDS.REGION)
-      .attr("viewbox", `0 0 800 600`)
       .attr("width", containerWidth)
       .attr("height", containerHeight)
       .style("padding", "30px")
+      .attr("id", "geo")
       .attr("viewbox", `-60 -60 ${width} ${height}`);
 
     const geoData = topojson.feature(building, building.objects.buildings);
     const projection = d3
       .geoIdentity()
       .reflectY(true)
-      .fitSize([width, height], geoData);
+      .fitSize([width, height], borderObj(viewExtent));
     let path = d3.geoPath(projection);
 
     svg
       .selectAll("path")
       .data(geoData.features)
-      .enter() // 指定选择集的 enter 部分, 下一行的 append 会给这些添加足量的元素
+      .enter()
       .append("path")
       .attr("d", path)
       .style("fill", "none")
@@ -74,43 +80,19 @@ const RegionMap = () => {
       .attr("stroke-width", 1)
       .attr("class", "building");
 
-    const ellipse = schoolLocations.map(transformCordinate);
-    console.log({ ellipse });
+    const ellipse = pointsOrig.map(transformCordinate);
 
-    // svg
-    //   .selectAll("ellipse")
-    //   .data(ellipse)
-    //   .enter()
-    //   .append("ellipse")
-    //   .attr("cx", (d) => d[0])
-    //   .attr("cy", (d) => d[1])
-    //   .attr("rx", 5)
-    //   .attr("ry", 5)
-    //   .style("fill", colours("sch"))
-    //   .attr("stroke", colours("sch"));
-
-    let vertex = [
-      // [-5000 + 5, -200 + 5, "spa"],
-      // [2800 - 5, -200 + 5, "spa"],
-      // [-5000 + 5, 8000 - 5, "spa"],
-      // [2800 - 5, 8000 - 5, "spa"],
-      [-4200, -200, "emp"],
-      [-4200, 8000, "emp"],
-    ];
-    vertex = vertex.map(transformCordinate);
-
-    console.log({ vertex });
     svg
       .selectAll("ellipse")
-      .data(vertex)
+      .data(ellipse)
       .enter()
       .append("ellipse")
       .attr("cx", (d) => d[0])
       .attr("cy", (d) => d[1])
-      .attr("rx", 10)
-      .attr("ry", 10)
-      .style("fill", (d) => d[2])
-      .attr("stroke", (d) => d[2]);
+      .attr("rx", 1)
+      .attr("ry", 1)
+      .style("fill", (d) => colours(d[2]))
+      .attr("stroke", (d) => colours(d[2]));
   };
 
   useEffect(() => {

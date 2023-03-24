@@ -11,45 +11,24 @@ import {
   containerWidth,
   xScale,
   yScale,
+  viewExtent,
+  mapExtent,
+  SVG_IDS,
 } from "../utils/constant";
+import {
+  borderObj,
+  genGridLines,
+  genXLabels,
+  genYLabels,
+} from "../utils/utils";
+import schoolLocations from "../assets/locations/schoolLocations.json";
 
-const mapExtent = { minX: -5000, minY: -200, maxX: 2800, maxY: 8000 };
-const viewExtent = {
-  minX: -5000,
-  minY: -400,
-  maxX: 3000,
-  maxY: 8200,
+const buildingExent = {
+  minX: -4762.19066918826,
+  minY: -30.08359080145072,
+  maxX: 2650,
+  maxY: 7850.037195143702,
 };
-const gridLines = [];
-for (let x = mapExtent.minX; x <= mapExtent.maxX; x += 200) {
-  gridLines.push([
-    [x, mapExtent.minY],
-    [x, mapExtent.maxY],
-  ]);
-}
-for (let y = mapExtent.minY; y <= mapExtent.maxY; y += 200) {
-  gridLines.push([
-    [mapExtent.minX, y],
-    [mapExtent.maxX, y],
-  ]);
-}
-
-const xLabels = [];
-for (let x = mapExtent.minX; x <= mapExtent.maxX; x += 1000) {
-  xLabels.push([
-    [x, mapExtent.minY],
-    [x, mapExtent.maxY],
-  ]);
-}
-
-const yLabels = [];
-for (let y = 0; y <= mapExtent.maxY; y += 1000) {
-  yLabels.push([
-    [mapExtent.minX, y],
-    [mapExtent.maxX, y],
-  ]);
-}
-
 const transfromLinesCord = ([v1, v2]) => {
   return [
     [xScale(v1[0]), yScale(v1[1])],
@@ -61,7 +40,7 @@ const transfromLinesCord = ([v1, v2]) => {
 const TopoBuilding = () => {
   const addToolTip = () => {
     const tooltip = d3
-      .select("#map-container")
+      .select(`#${SVG_IDS.BUILDING}-container`)
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
@@ -128,7 +107,7 @@ const TopoBuilding = () => {
 
   const drawMap = () => {
     let svg = d3
-      .select("#map-container")
+      .select(`#${SVG_IDS.BUILDING}-container`)
       .append("svg")
       .attr("width", containerWidth)
       .attr("height", containerHeight)
@@ -142,19 +121,7 @@ const TopoBuilding = () => {
     const projection = d3
       .geoIdentity()
       .reflectY(true)
-      // .fitSize([width, height], geoData);
-      .fitSize([width, height], {
-        type: "Polygon",
-        coordinates: [
-          [
-            [viewExtent.minX, viewExtent.minY],
-            [viewExtent.minX, viewExtent.maxY],
-            [viewExtent.maxX, viewExtent.maxY],
-            [viewExtent.maxX, viewExtent.minY],
-            [viewExtent.minX, viewExtent.minY],
-          ],
-        ],
-      });
+      .fitSize([width, height], borderObj(viewExtent));
     let path = d3.geoPath(projection);
 
     svg
@@ -177,7 +144,7 @@ const TopoBuilding = () => {
       .attr("stroke-width", 1)
       .attr("class", "building");
 
-    const grids = gridLines.map(transfromLinesCord);
+    const grids = genGridLines().map(transfromLinesCord);
 
     svg
       .append("g")
@@ -192,6 +159,8 @@ const TopoBuilding = () => {
       .attr("stroke-width", 0.2)
       .attr("stroke", "#ccc");
 
+    const xLabels = genXLabels();
+    const yLabels = genYLabels();
     let labels = xLabels.concat(yLabels);
     labels = labels.map(transfromLinesCord);
     const lineGroup = svg.append("g");
@@ -248,7 +217,7 @@ const TopoBuilding = () => {
         <button id="zoom-out">zoom out</button>
       </div>
       <div
-        id="map-container"
+        id="building-map-container"
         style={{
           width: containerWidth + margin.left + margin.right,
           height: containerHeight + margin.top + margin.bottm,
