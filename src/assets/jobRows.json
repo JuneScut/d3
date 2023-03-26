@@ -1,0 +1,1773 @@
+[
+  {
+    "employerId": 382,
+    "locationX": 670.39874,
+    "locationY": 1584.474346,
+    "buildingId": 3,
+    "numJobs": 9
+  },
+  {
+    "employerId": 399,
+    "locationX": 1626.361733,
+    "locationY": 4226.189406,
+    "buildingId": 180,
+    "numJobs": 9
+  },
+  {
+    "employerId": 406,
+    "locationX": 973.237419,
+    "locationY": 3805.640411,
+    "buildingId": 347,
+    "numJobs": 9
+  },
+  {
+    "employerId": 427,
+    "locationX": -885.296614,
+    "locationY": 1555.976495,
+    "buildingId": 315,
+    "numJobs": 9
+  },
+  {
+    "employerId": 437,
+    "locationX": 660.2070252,
+    "locationY": 3610.994567,
+    "buildingId": 511,
+    "numJobs": 9
+  },
+  {
+    "employerId": 841,
+    "locationX": -1771.452217,
+    "locationY": 4386.238293,
+    "buildingId": 917,
+    "numJobs": 9
+  },
+  {
+    "employerId": 867,
+    "locationX": -1903.26917,
+    "locationY": 4549.780196,
+    "buildingId": 118,
+    "numJobs": 9
+  },
+  {
+    "employerId": 868,
+    "locationX": -1982.785008,
+    "locationY": 4381.550831,
+    "buildingId": 416,
+    "numJobs": 9
+  },
+  {
+    "employerId": 871,
+    "locationX": -2202.659452,
+    "locationY": 3456.928319,
+    "buildingId": 297,
+    "numJobs": 9
+  },
+  {
+    "employerId": 876,
+    "locationX": -1670.937274,
+    "locationY": 4186.622203,
+    "buildingId": 411,
+    "numJobs": 9
+  },
+  {
+    "employerId": 877,
+    "locationX": -1784.078473,
+    "locationY": 4571.813634,
+    "buildingId": 670,
+    "numJobs": 9
+  },
+  {
+    "employerId": 878,
+    "locationX": -1104.681087,
+    "locationY": 4468.58151,
+    "buildingId": 205,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1298,
+    "locationX": -3569.215605,
+    "locationY": 4903.192505,
+    "buildingId": 441,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1306,
+    "locationX": -643.7038074,
+    "locationY": 5917.381045,
+    "buildingId": 680,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1315,
+    "locationX": -1275.013259,
+    "locationY": 5248.064077,
+    "buildingId": 156,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1748,
+    "locationX": -3098.599453,
+    "locationY": 6628.672912,
+    "buildingId": 160,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1757,
+    "locationX": -3741.432303,
+    "locationY": 5162.439642,
+    "buildingId": 949,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1759,
+    "locationX": -3699.851967,
+    "locationY": 6540.218682,
+    "buildingId": 305,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1763,
+    "locationX": -3136.127896,
+    "locationY": 6628.672912,
+    "buildingId": 160,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1771,
+    "locationX": -3724.878042,
+    "locationY": 6559.417348,
+    "buildingId": 305,
+    "numJobs": 9
+  },
+  {
+    "employerId": 1786,
+    "locationX": -3300.166421,
+    "locationY": 6148.413136,
+    "buildingId": 738,
+    "numJobs": 9
+  },
+  {
+    "employerId": 383,
+    "locationX": 829.9556783,
+    "locationY": 2163.480305,
+    "buildingId": 146,
+    "numJobs": 8
+  },
+  {
+    "employerId": 386,
+    "locationX": -1349.884229,
+    "locationY": 1610.462363,
+    "buildingId": 596,
+    "numJobs": 8
+  },
+  {
+    "employerId": 396,
+    "locationX": 868.9021104,
+    "locationY": 4390.340745,
+    "buildingId": 590,
+    "numJobs": 8
+  },
+  {
+    "employerId": 397,
+    "locationX": 1499.320477,
+    "locationY": 4304.553084,
+    "buildingId": 351,
+    "numJobs": 8
+  },
+  {
+    "employerId": 401,
+    "locationX": -1674.863,
+    "locationY": 1638.152059,
+    "buildingId": 623,
+    "numJobs": 8
+  },
+  {
+    "employerId": 408,
+    "locationX": 412.9860809,
+    "locationY": 1033.180603,
+    "buildingId": 516,
+    "numJobs": 8
+  },
+  {
+    "employerId": 414,
+    "locationX": -82.06554016,
+    "locationY": 1511.112955,
+    "buildingId": 983,
+    "numJobs": 8
+  },
+  {
+    "employerId": 422,
+    "locationX": 1273.434409,
+    "locationY": 1252.930095,
+    "buildingId": 317,
+    "numJobs": 8
+  },
+  {
+    "employerId": 423,
+    "locationX": 650.4125959,
+    "locationY": 1744.506247,
+    "buildingId": 304,
+    "numJobs": 8
+  },
+  {
+    "employerId": 434,
+    "locationX": 800.6342599,
+    "locationY": 4103.165164,
+    "buildingId": 150,
+    "numJobs": 8
+  },
+  {
+    "employerId": 438,
+    "locationX": 2130.28125,
+    "locationY": 4828.020412,
+    "buildingId": 972,
+    "numJobs": 8
+  },
+  {
+    "employerId": 440,
+    "locationX": 448.7991399,
+    "locationY": 4328.781743,
+    "buildingId": 644,
+    "numJobs": 8
+  },
+  {
+    "employerId": 837,
+    "locationX": -2236.826321,
+    "locationY": 5274.275381,
+    "buildingId": 17,
+    "numJobs": 8
+  },
+  {
+    "employerId": 843,
+    "locationX": -2330.4223,
+    "locationY": 2944.720457,
+    "buildingId": 869,
+    "numJobs": 8
+  },
+  {
+    "employerId": 857,
+    "locationX": -1096.08397,
+    "locationY": 4912.223246,
+    "buildingId": 190,
+    "numJobs": 8
+  },
+  {
+    "employerId": 865,
+    "locationX": -1968.21993,
+    "locationY": 4032.689325,
+    "buildingId": 862,
+    "numJobs": 8
+  },
+  {
+    "employerId": 873,
+    "locationX": -2000.303221,
+    "locationY": 4184.06154,
+    "buildingId": 446,
+    "numJobs": 8
+  },
+  {
+    "employerId": 883,
+    "locationX": -2148.436842,
+    "locationY": 5261.788713,
+    "buildingId": 17,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1285,
+    "locationX": 170.7469404,
+    "locationY": 4771.135721,
+    "buildingId": 595,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1291,
+    "locationX": -2010.851771,
+    "locationY": 5283.764927,
+    "buildingId": 475,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1297,
+    "locationX": -3255.070596,
+    "locationY": 5479.411781,
+    "buildingId": 775,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1330,
+    "locationX": -344.8772446,
+    "locationY": 3683.020262,
+    "buildingId": 409,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1337,
+    "locationX": -2488.00186,
+    "locationY": 5885.734088,
+    "buildingId": 269,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1735,
+    "locationX": -3837.636675,
+    "locationY": 5492.869111,
+    "buildingId": 749,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1737,
+    "locationX": -4153.336134,
+    "locationY": 5376.423146,
+    "buildingId": 1041,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1749,
+    "locationX": -3221.240287,
+    "locationY": 6153.955276,
+    "buildingId": 932,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1764,
+    "locationX": -3233.073169,
+    "locationY": 6116.185086,
+    "buildingId": 932,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1770,
+    "locationX": -3796.119851,
+    "locationY": 6330.79319,
+    "buildingId": 627,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1789,
+    "locationX": -3813.291399,
+    "locationY": 5750.038441,
+    "buildingId": 877,
+    "numJobs": 8
+  },
+  {
+    "employerId": 1793,
+    "locationX": -3313.211913,
+    "locationY": 6185.833728,
+    "buildingId": 738,
+    "numJobs": 8
+  },
+  {
+    "employerId": 388,
+    "locationX": 611.8427227,
+    "locationY": 2550.725018,
+    "buildingId": 986,
+    "numJobs": 7
+  },
+  {
+    "employerId": 403,
+    "locationX": 2026.399957,
+    "locationY": 4142.402774,
+    "buildingId": 1023,
+    "numJobs": 7
+  },
+  {
+    "employerId": 405,
+    "locationX": 1535.411174,
+    "locationY": 4021.741043,
+    "buildingId": 982,
+    "numJobs": 7
+  },
+  {
+    "employerId": 413,
+    "locationX": 917.1190166,
+    "locationY": 2102.895038,
+    "buildingId": 354,
+    "numJobs": 7
+  },
+  {
+    "employerId": 416,
+    "locationX": 507.3181022,
+    "locationY": 1381.677443,
+    "buildingId": 493,
+    "numJobs": 7
+  },
+  {
+    "employerId": 418,
+    "locationX": 789.6213749,
+    "locationY": 1269.872915,
+    "buildingId": 472,
+    "numJobs": 7
+  },
+  {
+    "employerId": 435,
+    "locationX": 1122.744816,
+    "locationY": 4383.06697,
+    "buildingId": 34,
+    "numJobs": 7
+  },
+  {
+    "employerId": 439,
+    "locationX": 585.221688,
+    "locationY": 3622.718044,
+    "buildingId": 395,
+    "numJobs": 7
+  },
+  {
+    "employerId": 441,
+    "locationX": -81.95690432,
+    "locationY": 1423.077479,
+    "buildingId": 241,
+    "numJobs": 7
+  },
+  {
+    "employerId": 831,
+    "locationX": -2200.279973,
+    "locationY": 3572.469314,
+    "buildingId": 32,
+    "numJobs": 7
+  },
+  {
+    "employerId": 834,
+    "locationX": -2380.139485,
+    "locationY": 2944.720457,
+    "buildingId": 869,
+    "numJobs": 7
+  },
+  {
+    "employerId": 840,
+    "locationX": -1771.452217,
+    "locationY": 4258.263944,
+    "buildingId": 917,
+    "numJobs": 7
+  },
+  {
+    "employerId": 845,
+    "locationX": -2363.141932,
+    "locationY": 2673.880812,
+    "buildingId": 373,
+    "numJobs": 7
+  },
+  {
+    "employerId": 847,
+    "locationX": -1680.936253,
+    "locationY": 4258.263944,
+    "buildingId": 917,
+    "numJobs": 7
+  },
+  {
+    "employerId": 852,
+    "locationX": -820.4751468,
+    "locationY": 4770.301636,
+    "buildingId": 474,
+    "numJobs": 7
+  },
+  {
+    "employerId": 855,
+    "locationX": -784.6236528,
+    "locationY": 4940.690749,
+    "buildingId": 375,
+    "numJobs": 7
+  },
+  {
+    "employerId": 856,
+    "locationX": -468.0294813,
+    "locationY": 4846.264155,
+    "buildingId": 121,
+    "numJobs": 7
+  },
+  {
+    "employerId": 869,
+    "locationX": -855.2484275,
+    "locationY": 4593.770198,
+    "buildingId": 132,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1283,
+    "locationX": -2909.028214,
+    "locationY": 6510.130399,
+    "buildingId": 870,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1288,
+    "locationX": -657.7838584,
+    "locationY": 5932.813698,
+    "buildingId": 680,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1290,
+    "locationX": -625.2259567,
+    "locationY": 4283.435088,
+    "buildingId": 755,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1299,
+    "locationX": -769.6207629,
+    "locationY": 3991.942912,
+    "buildingId": 765,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1302,
+    "locationX": -3532.341731,
+    "locationY": 5586.896701,
+    "buildingId": 76,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1309,
+    "locationX": -3048.226902,
+    "locationY": 6283.814828,
+    "buildingId": 88,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1326,
+    "locationX": -3385.917143,
+    "locationY": 6106.353934,
+    "buildingId": 47,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1742,
+    "locationX": -3297.406406,
+    "locationY": 7156.152299,
+    "buildingId": 331,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1745,
+    "locationX": -3209.738139,
+    "locationY": 6557.838945,
+    "buildingId": 953,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1760,
+    "locationX": -3210.35546,
+    "locationY": 6648.152455,
+    "buildingId": 543,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1765,
+    "locationX": -3556.818289,
+    "locationY": 6705.310448,
+    "buildingId": 277,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1790,
+    "locationX": -3927.91024,
+    "locationY": 5570.155155,
+    "buildingId": 285,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1792,
+    "locationX": -3833.693529,
+    "locationY": 5804.401063,
+    "buildingId": 877,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1795,
+    "locationX": -3267.606055,
+    "locationY": 6452.567059,
+    "buildingId": 953,
+    "numJobs": 7
+  },
+  {
+    "employerId": 1796,
+    "locationX": -3725.261225,
+    "locationY": 6345.551342,
+    "buildingId": 1011,
+    "numJobs": 7
+  },
+  {
+    "employerId": 385,
+    "locationX": 231.1388453,
+    "locationY": 1095.647179,
+    "buildingId": 782,
+    "numJobs": 6
+  },
+  {
+    "employerId": 389,
+    "locationX": 1749.107723,
+    "locationY": 4023.659853,
+    "buildingId": 1020,
+    "numJobs": 6
+  },
+  {
+    "employerId": 393,
+    "locationX": 903.96911,
+    "locationY": 4220.741538,
+    "buildingId": 592,
+    "numJobs": 6
+  },
+  {
+    "employerId": 409,
+    "locationX": 1207.490101,
+    "locationY": 4007.885706,
+    "buildingId": 225,
+    "numJobs": 6
+  },
+  {
+    "employerId": 411,
+    "locationX": 916.9315425,
+    "locationY": 4292.958507,
+    "buildingId": 527,
+    "numJobs": 6
+  },
+  {
+    "employerId": 412,
+    "locationX": 496.2476569,
+    "locationY": 1686.15245,
+    "buildingId": 1009,
+    "numJobs": 6
+  },
+  {
+    "employerId": 415,
+    "locationX": 1496.445613,
+    "locationY": 4021.741043,
+    "buildingId": 982,
+    "numJobs": 6
+  },
+  {
+    "employerId": 425,
+    "locationX": -328.8906021,
+    "locationY": 1795.107912,
+    "buildingId": 946,
+    "numJobs": 6
+  },
+  {
+    "employerId": 429,
+    "locationX": 715.9086691,
+    "locationY": 4418.132191,
+    "buildingId": 964,
+    "numJobs": 6
+  },
+  {
+    "employerId": 432,
+    "locationX": 991.3270591,
+    "locationY": 4100.917175,
+    "buildingId": 142,
+    "numJobs": 6
+  },
+  {
+    "employerId": 436,
+    "locationX": 1376.397651,
+    "locationY": 4861.346259,
+    "buildingId": 1024,
+    "numJobs": 6
+  },
+  {
+    "employerId": 830,
+    "locationX": -804.6120047,
+    "locationY": 5042.016376,
+    "buildingId": 421,
+    "numJobs": 6
+  },
+  {
+    "employerId": 838,
+    "locationX": -1403.810345,
+    "locationY": 4457.264332,
+    "buildingId": 422,
+    "numJobs": 6
+  },
+  {
+    "employerId": 853,
+    "locationX": -811.6790008,
+    "locationY": 4695.717947,
+    "buildingId": 549,
+    "numJobs": 6
+  },
+  {
+    "employerId": 859,
+    "locationX": -1684.567984,
+    "locationY": 3880.071128,
+    "buildingId": 238,
+    "numJobs": 6
+  },
+  {
+    "employerId": 874,
+    "locationX": -1985.985052,
+    "locationY": 4683.882031,
+    "buildingId": 567,
+    "numJobs": 6
+  },
+  {
+    "employerId": 880,
+    "locationX": -2330.4223,
+    "locationY": 2982.861013,
+    "buildingId": 869,
+    "numJobs": 6
+  },
+  {
+    "employerId": 885,
+    "locationX": -2195.763294,
+    "locationY": 5124.807852,
+    "buildingId": 151,
+    "numJobs": 6
+  },
+  {
+    "employerId": 887,
+    "locationX": -1590.604526,
+    "locationY": 4166.991588,
+    "buildingId": 339,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1280,
+    "locationX": -501.4267606,
+    "locationY": 3608.072271,
+    "buildingId": 489,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1282,
+    "locationX": -746.02978,
+    "locationY": 4008.34528,
+    "buildingId": 765,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1287,
+    "locationX": -5.816781981,
+    "locationY": 3582.204933,
+    "buildingId": 255,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1289,
+    "locationX": -3528.306825,
+    "locationY": 4886.547525,
+    "buildingId": 441,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1300,
+    "locationX": -251.5520077,
+    "locationY": 4701.616285,
+    "buildingId": 561,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1304,
+    "locationX": -3325.575418,
+    "locationY": 5307.883074,
+    "buildingId": 410,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1305,
+    "locationX": -416.1482587,
+    "locationY": 5854.826834,
+    "buildingId": 64,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1307,
+    "locationX": -711.2265333,
+    "locationY": 3649.718386,
+    "buildingId": 923,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1310,
+    "locationX": -3061.666267,
+    "locationY": 5929.835547,
+    "buildingId": 434,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1311,
+    "locationX": -1730.461618,
+    "locationY": 5925.860203,
+    "buildingId": 401,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1317,
+    "locationX": -2616.480027,
+    "locationY": 6541.191812,
+    "buildingId": 588,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1318,
+    "locationX": -525.2895731,
+    "locationY": 4289.093107,
+    "buildingId": 343,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1323,
+    "locationX": -3079.47326,
+    "locationY": 6283.814828,
+    "buildingId": 88,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1341,
+    "locationX": -1033.176736,
+    "locationY": 5766.179874,
+    "buildingId": 454,
+    "numJobs": 6
+  },
+  {
+    "employerId": 1788,
+    "locationX": -3463.167738,
+    "locationY": 7836.545593,
+    "buildingId": 183,
+    "numJobs": 6
+  },
+  {
+    "employerId": 402,
+    "locationX": 1004.115267,
+    "locationY": 4462.540163,
+    "buildingId": 717,
+    "numJobs": 5
+  },
+  {
+    "employerId": 410,
+    "locationX": 1376.397651,
+    "locationY": 4822.779543,
+    "buildingId": 1024,
+    "numJobs": 5
+  },
+  {
+    "employerId": 420,
+    "locationX": 1677.414572,
+    "locationY": 4234.689308,
+    "buildingId": 795,
+    "numJobs": 5
+  },
+  {
+    "employerId": 421,
+    "locationX": 813.0476801,
+    "locationY": 4199.837242,
+    "buildingId": 479,
+    "numJobs": 5
+  },
+  {
+    "employerId": 424,
+    "locationX": 39.59877121,
+    "locationY": 1259.774222,
+    "buildingId": 936,
+    "numJobs": 5
+  },
+  {
+    "employerId": 426,
+    "locationX": -904.232532,
+    "locationY": 1335.950648,
+    "buildingId": 256,
+    "numJobs": 5
+  },
+  {
+    "employerId": 428,
+    "locationX": 1174.55999,
+    "locationY": 3684.551569,
+    "buildingId": 323,
+    "numJobs": 5
+  },
+  {
+    "employerId": 850,
+    "locationX": -2364.178808,
+    "locationY": 5198.195715,
+    "buildingId": 485,
+    "numJobs": 5
+  },
+  {
+    "employerId": 851,
+    "locationX": -1398.395714,
+    "locationY": 4280.029147,
+    "buildingId": 544,
+    "numJobs": 5
+  },
+  {
+    "employerId": 860,
+    "locationX": -836.8537841,
+    "locationY": 4575.535706,
+    "buildingId": 132,
+    "numJobs": 5
+  },
+  {
+    "employerId": 861,
+    "locationX": -2235.29224,
+    "locationY": 5106.718129,
+    "buildingId": 151,
+    "numJobs": 5
+  },
+  {
+    "employerId": 863,
+    "locationX": -1967.825891,
+    "locationY": 4254.251068,
+    "buildingId": 93,
+    "numJobs": 5
+  },
+  {
+    "employerId": 870,
+    "locationX": -1499.904326,
+    "locationY": 4258.263944,
+    "buildingId": 917,
+    "numJobs": 5
+  },
+  {
+    "employerId": 891,
+    "locationX": -1089.988902,
+    "locationY": 4455.822342,
+    "buildingId": 205,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1281,
+    "locationX": -250.1025076,
+    "locationY": 4857.006484,
+    "buildingId": 580,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1284,
+    "locationX": -746.1058381,
+    "locationY": 5429.550548,
+    "buildingId": 260,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1286,
+    "locationX": -2724.188038,
+    "locationY": 6717.649857,
+    "buildingId": 715,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1292,
+    "locationX": -170.8422876,
+    "locationY": 3790.738781,
+    "buildingId": 664,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1295,
+    "locationX": -831.1509971,
+    "locationY": 4313.035927,
+    "buildingId": 981,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1303,
+    "locationX": -173.3643482,
+    "locationY": 3690.962126,
+    "buildingId": 352,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1316,
+    "locationX": 447.7528813,
+    "locationY": 4446.320032,
+    "buildingId": 1034,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1324,
+    "locationX": -525.2260085,
+    "locationY": 4093.343372,
+    "buildingId": 486,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1339,
+    "locationX": -3257.56351,
+    "locationY": 5415.033051,
+    "buildingId": 8,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1340,
+    "locationX": -633.2986927,
+    "locationY": 5354.847863,
+    "buildingId": 767,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1736,
+    "locationX": -3588.879287,
+    "locationY": 6178.752204,
+    "buildingId": 521,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1743,
+    "locationX": -3748.376634,
+    "locationY": 5264.252683,
+    "buildingId": 808,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1744,
+    "locationX": -3588.324219,
+    "locationY": 6798.416765,
+    "buildingId": 187,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1746,
+    "locationX": -3973.097905,
+    "locationY": 5154.380353,
+    "buildingId": 912,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1766,
+    "locationX": -3209.738139,
+    "locationY": 6522.748317,
+    "buildingId": 953,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1768,
+    "locationX": -3837.722151,
+    "locationY": 6367.922073,
+    "buildingId": 627,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1774,
+    "locationX": -3448.941076,
+    "locationY": 6764.519626,
+    "buildingId": 807,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1779,
+    "locationX": -4024.211499,
+    "locationY": 5693.927627,
+    "buildingId": 175,
+    "numJobs": 5
+  },
+  {
+    "employerId": 1782,
+    "locationX": -3205.791803,
+    "locationY": 7158.990636,
+    "buildingId": 213,
+    "numJobs": 5
+  },
+  {
+    "employerId": 381,
+    "locationX": 877.2786575,
+    "locationY": 1358.544181,
+    "buildingId": 279,
+    "numJobs": 4
+  },
+  {
+    "employerId": 387,
+    "locationX": 864.938201,
+    "locationY": 1556.39728,
+    "buildingId": 880,
+    "numJobs": 4
+  },
+  {
+    "employerId": 390,
+    "locationX": 994.4462621,
+    "locationY": 3762.365428,
+    "buildingId": 347,
+    "numJobs": 4
+  },
+  {
+    "employerId": 395,
+    "locationX": 286.5863278,
+    "locationY": 1725.599925,
+    "buildingId": 230,
+    "numJobs": 4
+  },
+  {
+    "employerId": 398,
+    "locationX": 754.0987512,
+    "locationY": 1394.050063,
+    "buildingId": 692,
+    "numJobs": 4
+  },
+  {
+    "employerId": 407,
+    "locationX": 1105.263066,
+    "locationY": 3730.801103,
+    "buildingId": 1033,
+    "numJobs": 4
+  },
+  {
+    "employerId": 417,
+    "locationX": -903.1271422,
+    "locationY": 1570.767995,
+    "buildingId": 315,
+    "numJobs": 4
+  },
+  {
+    "employerId": 833,
+    "locationX": -1967.825891,
+    "locationY": 4299.950272,
+    "buildingId": 93,
+    "numJobs": 4
+  },
+  {
+    "employerId": 839,
+    "locationX": -1567.708266,
+    "locationY": 4491.262409,
+    "buildingId": 162,
+    "numJobs": 4
+  },
+  {
+    "employerId": 842,
+    "locationX": -692.7127197,
+    "locationY": 5040.338833,
+    "buildingId": 773,
+    "numJobs": 4
+  },
+  {
+    "employerId": 849,
+    "locationX": -2231.667935,
+    "locationY": 2598.72879,
+    "buildingId": 426,
+    "numJobs": 4
+  },
+  {
+    "employerId": 854,
+    "locationX": -2107.065566,
+    "locationY": 4184.06154,
+    "buildingId": 446,
+    "numJobs": 4
+  },
+  {
+    "employerId": 862,
+    "locationX": -1475.358048,
+    "locationY": 4473.948599,
+    "buildingId": 578,
+    "numJobs": 4
+  },
+  {
+    "employerId": 872,
+    "locationX": -2202.659452,
+    "locationY": 3327.781753,
+    "buildingId": 297,
+    "numJobs": 4
+  },
+  {
+    "employerId": 888,
+    "locationX": -1034.462982,
+    "locationY": 3711.302623,
+    "buildingId": 254,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1279,
+    "locationX": -654.0366979,
+    "locationY": 3632.076065,
+    "buildingId": 923,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1313,
+    "locationX": -276.6683005,
+    "locationY": 5125.990452,
+    "buildingId": 467,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1314,
+    "locationX": -3366.855921,
+    "locationY": 5265.17373,
+    "buildingId": 410,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1321,
+    "locationX": -2616.480027,
+    "locationY": 6497.734086,
+    "buildingId": 588,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1329,
+    "locationX": -3149.90341,
+    "locationY": 5907.346101,
+    "buildingId": 413,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1334,
+    "locationX": -2992.288271,
+    "locationY": 6202.617103,
+    "buildingId": 487,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1336,
+    "locationX": -746.1058381,
+    "locationY": 5478.005757,
+    "buildingId": 260,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1734,
+    "locationX": -3480.170404,
+    "locationY": 6856.274228,
+    "buildingId": 261,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1739,
+    "locationX": -3873.963875,
+    "locationY": 5651.680013,
+    "buildingId": 1028,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1747,
+    "locationX": -3697.997084,
+    "locationY": 5406.876829,
+    "buildingId": 37,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1761,
+    "locationX": -3804.319468,
+    "locationY": 5928.891714,
+    "buildingId": 26,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1767,
+    "locationX": -3972.030607,
+    "locationY": 5494.639627,
+    "buildingId": 285,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1776,
+    "locationX": -3968.209269,
+    "locationY": 6628.224806,
+    "buildingId": 714,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1781,
+    "locationX": -3480.170404,
+    "locationY": 6856.274228,
+    "buildingId": 261,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1783,
+    "locationX": -3717.487986,
+    "locationY": 6703.2047,
+    "buildingId": 788,
+    "numJobs": 4
+  },
+  {
+    "employerId": 1784,
+    "locationX": -4017.808181,
+    "locationY": 6949.61277,
+    "buildingId": 453,
+    "numJobs": 4
+  },
+  {
+    "employerId": 384,
+    "locationX": 880.1644882,
+    "locationY": 4339.701656,
+    "buildingId": 527,
+    "numJobs": 3
+  },
+  {
+    "employerId": 391,
+    "locationX": 609.8156412,
+    "locationY": 787.4692665,
+    "buildingId": 632,
+    "numJobs": 3
+  },
+  {
+    "employerId": 392,
+    "locationX": -885.296614,
+    "locationY": 1555.976495,
+    "buildingId": 315,
+    "numJobs": 3
+  },
+  {
+    "employerId": 400,
+    "locationX": 753.1769059,
+    "locationY": 1739.395852,
+    "buildingId": 227,
+    "numJobs": 3
+  },
+  {
+    "employerId": 832,
+    "locationX": -831.9562922,
+    "locationY": 4676.408941,
+    "buildingId": 549,
+    "numJobs": 3
+  },
+  {
+    "employerId": 836,
+    "locationX": -692.982537,
+    "locationY": 4950.223259,
+    "buildingId": 694,
+    "numJobs": 3
+  },
+  {
+    "employerId": 844,
+    "locationX": -836.7192151,
+    "locationY": 4482.040751,
+    "buildingId": 86,
+    "numJobs": 3
+  },
+  {
+    "employerId": 864,
+    "locationX": -1885.188601,
+    "locationY": 4569.085198,
+    "buildingId": 118,
+    "numJobs": 3
+  },
+  {
+    "employerId": 879,
+    "locationX": -2198.79273,
+    "locationY": 4271.178583,
+    "buildingId": 930,
+    "numJobs": 3
+  },
+  {
+    "employerId": 882,
+    "locationX": -1241.648347,
+    "locationY": 3722.018042,
+    "buildingId": 106,
+    "numJobs": 3
+  },
+  {
+    "employerId": 884,
+    "locationX": -1968.21993,
+    "locationY": 3886.91527,
+    "buildingId": 862,
+    "numJobs": 3
+  },
+  {
+    "employerId": 886,
+    "locationX": -784.6236528,
+    "locationY": 4863.668067,
+    "buildingId": 375,
+    "numJobs": 3
+  },
+  {
+    "employerId": 890,
+    "locationX": -2240.491394,
+    "locationY": 5198.567602,
+    "buildingId": 781,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1296,
+    "locationX": -826.245654,
+    "locationY": 5240.884422,
+    "buildingId": 1016,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1319,
+    "locationX": -3366.855921,
+    "locationY": 5307.883074,
+    "buildingId": 410,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1320,
+    "locationX": -840.6753278,
+    "locationY": 5842.41532,
+    "buildingId": 284,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1325,
+    "locationX": -3565.181908,
+    "locationY": 6099.396254,
+    "buildingId": 969,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1327,
+    "locationX": -671.8639095,
+    "locationY": 5917.381045,
+    "buildingId": 680,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1328,
+    "locationX": -3044.648008,
+    "locationY": 5950.665941,
+    "buildingId": 434,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1331,
+    "locationX": -129.4060069,
+    "locationY": 3983.301589,
+    "buildingId": 585,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1332,
+    "locationX": -749.8180736,
+    "locationY": 5847.491402,
+    "buildingId": 584,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1333,
+    "locationX": -1936.177243,
+    "locationY": 5280.458797,
+    "buildingId": 333,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1335,
+    "locationX": -459.4741676,
+    "locationY": 3608.072271,
+    "buildingId": 489,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1738,
+    "locationX": -3796.119851,
+    "locationY": 6367.922073,
+    "buildingId": 627,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1740,
+    "locationX": -3819.339545,
+    "locationY": 5136.90597,
+    "buildingId": 206,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1751,
+    "locationX": -4515.907604,
+    "locationY": 4631.612407,
+    "buildingId": 604,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1755,
+    "locationX": -3433.386544,
+    "locationY": 7828.196053,
+    "buildingId": 183,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1756,
+    "locationX": -3556.818289,
+    "locationY": 6641.646724,
+    "buildingId": 277,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1758,
+    "locationX": -3742.540065,
+    "locationY": 5916.875247,
+    "buildingId": 267,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1775,
+    "locationX": -4150.694544,
+    "locationY": 5079.325752,
+    "buildingId": 28,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1785,
+    "locationX": -4597.345294,
+    "locationY": 4632.743041,
+    "buildingId": 129,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1791,
+    "locationX": -3209.407405,
+    "locationY": 6191.725466,
+    "buildingId": 932,
+    "numJobs": 3
+  },
+  {
+    "employerId": 1797,
+    "locationX": -3759.480918,
+    "locationY": 5179.602736,
+    "buildingId": 949,
+    "numJobs": 3
+  },
+  {
+    "employerId": 379,
+    "locationX": -1849.997168,
+    "locationY": 1744.601015,
+    "buildingId": 823,
+    "numJobs": 2
+  },
+  {
+    "employerId": 380,
+    "locationX": 41.51783768,
+    "locationY": 418.72648,
+    "buildingId": 154,
+    "numJobs": 2
+  },
+  {
+    "employerId": 394,
+    "locationX": 865.149409,
+    "locationY": 982.7393732,
+    "buildingId": 893,
+    "numJobs": 2
+  },
+  {
+    "employerId": 404,
+    "locationX": 2630,
+    "locationY": 4050,
+    "buildingId": 103,
+    "numJobs": 2
+  },
+  {
+    "employerId": 419,
+    "locationX": 660.2070252,
+    "locationY": 3532.331326,
+    "buildingId": 511,
+    "numJobs": 2
+  },
+  {
+    "employerId": 430,
+    "locationX": 707.1111665,
+    "locationY": 2001.477203,
+    "buildingId": 304,
+    "numJobs": 2
+  },
+  {
+    "employerId": 431,
+    "locationX": -294.3549631,
+    "locationY": 1795.107912,
+    "buildingId": 946,
+    "numJobs": 2
+  },
+  {
+    "employerId": 433,
+    "locationX": 318.9497075,
+    "locationY": 1033.180603,
+    "buildingId": 516,
+    "numJobs": 2
+  },
+  {
+    "employerId": 829,
+    "locationX": -1683.978829,
+    "locationY": 4166.345957,
+    "buildingId": 411,
+    "numJobs": 2
+  },
+  {
+    "employerId": 835,
+    "locationX": -2101.689511,
+    "locationY": 4262.490673,
+    "buildingId": 619,
+    "numJobs": 2
+  },
+  {
+    "employerId": 846,
+    "locationX": -996.7808288,
+    "locationY": 4750.184044,
+    "buildingId": 966,
+    "numJobs": 2
+  },
+  {
+    "employerId": 848,
+    "locationX": -468.0294813,
+    "locationY": 4779.92139,
+    "buildingId": 121,
+    "numJobs": 2
+  },
+  {
+    "employerId": 858,
+    "locationX": -1072.871077,
+    "locationY": 4660.493954,
+    "buildingId": 937,
+    "numJobs": 2
+  },
+  {
+    "employerId": 866,
+    "locationX": -1496.971337,
+    "locationY": 4493.171613,
+    "buildingId": 578,
+    "numJobs": 2
+  },
+  {
+    "employerId": 875,
+    "locationX": -981.7218379,
+    "locationY": 4774.377841,
+    "buildingId": 966,
+    "numJobs": 2
+  },
+  {
+    "employerId": 881,
+    "locationX": -911.0190489,
+    "locationY": 4853.786159,
+    "buildingId": 243,
+    "numJobs": 2
+  },
+  {
+    "employerId": 889,
+    "locationX": -1590.42029,
+    "locationY": 4258.263944,
+    "buildingId": 917,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1293,
+    "locationX": -1912.666745,
+    "locationY": 5288.500067,
+    "buildingId": 333,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1294,
+    "locationX": -580.0171766,
+    "locationY": 5936.726442,
+    "buildingId": 49,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1301,
+    "locationX": -2847.855611,
+    "locationY": 6663.900855,
+    "buildingId": 408,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1308,
+    "locationX": -580.0171766,
+    "locationY": 5936.726442,
+    "buildingId": 49,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1312,
+    "locationX": -271.3160304,
+    "locationY": 4985.57464,
+    "buildingId": 429,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1322,
+    "locationX": -1506.20624,
+    "locationY": 4764.893777,
+    "buildingId": 240,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1338,
+    "locationX": -86.78279549,
+    "locationY": 4702.886441,
+    "buildingId": 136,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1741,
+    "locationX": -3707.08228,
+    "locationY": 5086.911896,
+    "buildingId": 990,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1750,
+    "locationX": -3285.634007,
+    "locationY": 6326.229707,
+    "buildingId": 686,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1752,
+    "locationX": -3845.045733,
+    "locationY": 5576.738358,
+    "buildingId": 695,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1753,
+    "locationX": -3472.308586,
+    "locationY": 6781.22018,
+    "buildingId": 807,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1754,
+    "locationX": -3455.755867,
+    "locationY": 6846.648091,
+    "buildingId": 261,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1762,
+    "locationX": -3195.710698,
+    "locationY": 6669.514454,
+    "buildingId": 543,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1769,
+    "locationX": -3864.510743,
+    "locationY": 5591.096495,
+    "buildingId": 695,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1772,
+    "locationX": -4067.560405,
+    "locationY": 6647.483016,
+    "buildingId": 928,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1773,
+    "locationX": -3823.492464,
+    "locationY": 5777.219752,
+    "buildingId": 877,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1777,
+    "locationX": -3676.900846,
+    "locationY": 6798.416765,
+    "buildingId": 187,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1778,
+    "locationX": -3973.097905,
+    "locationY": 5074.196536,
+    "buildingId": 912,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1780,
+    "locationX": -3626.985781,
+    "locationY": 6864.37798,
+    "buildingId": 583,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1787,
+    "locationX": -4002.933531,
+    "locationY": 6628.224806,
+    "buildingId": 714,
+    "numJobs": 2
+  },
+  {
+    "employerId": 1794,
+    "locationX": -3786.373075,
+    "locationY": 4999.485452,
+    "buildingId": 802,
+    "numJobs": 2
+  }
+]

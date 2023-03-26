@@ -4,7 +4,6 @@ export const buildingTypeColors = {
   Commercial: "rgba(200, 199, 200, 0.8)",
   Residential: "rgba(233, 201, 157, 0.8)",
   School: "rgba(154, 169, 244, 1)",
-  none: "none",
 };
 export const width = 800,
   height = 860;
@@ -29,12 +28,47 @@ export const viewExtent = {
   maxX: 3000,
   maxY: 8200,
 };
+export const buildingExent = {
+  minX: -4762.19066918826,
+  minY: -30.08359080145072,
+  maxX: 2650,
+  maxY: 7850.037195143702,
+};
 
 export const xScale = d3
   .scaleLinear()
   .domain([viewExtent.minX, viewExtent.maxX])
   .range([0, width]);
+
 export const yScale = d3
   .scaleLinear()
   .domain([viewExtent.maxY, viewExtent.minY])
   .range([0, height]);
+
+export const BUILDING_TYPES = {
+  EMP: "employer",
+  APA: "apartment",
+  RES: "restaurant",
+  PUB: "pub",
+  SCH: "school",
+  SPA: "space",
+};
+
+export const opacity = 0.3;
+export const dotsCoulors = (type) => {
+  switch (type) {
+    case "EMP":
+      return `rgba(166,93,52,${opacity})`;
+    case "APA":
+      return `rgba(59,119,175,${opacity})`;
+    case "RES":
+      return `rgba(235,92,47,${opacity})`;
+    case "PUB":
+      return `rgba(209,53,43,${opacity})`;
+    case "SCH":
+      return `rgba(100,65,149,${opacity})`;
+    case "SPA":
+      return `rgba(84,157,63,${opacity})`;
+  }
+  return "black";
+};

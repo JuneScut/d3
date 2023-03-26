@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import building from "../assets/buildings.json";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as topojson from "topojson";
 import {
   buildingTypeColors,
@@ -12,44 +12,49 @@ import {
   xScale,
   yScale,
   viewExtent,
-  mapExtent,
   SVG_IDS,
+  BUILDING_TYPES,
+  dotsCoulors,
 } from "../utils/constant";
 import {
   borderObj,
   genGridLines,
   genXLabels,
   genYLabels,
+  initZoom,
+  transfromLinesCord,
+  transformCordinate,
 } from "../utils/utils";
+import { Divider, Radio, Select, Space } from "antd";
+import employerLocations from "../assets/locations/employerLocations.json";
+import spaceLocations from "../assets/locations/sapceLocations.json";
+import apartmentLocations from "../assets/locations/apartmentLocations.json";
+import pubLocations from "../assets/locations/pubLocations.json";
+import restaurantLocations from "../assets/locations/restaurantLocations.json";
 import schoolLocations from "../assets/locations/schoolLocations.json";
 
-const buildingExent = {
-  minX: -4762.19066918826,
-  minY: -30.08359080145072,
-  maxX: 2650,
-  maxY: 7850.037195143702,
-};
-const transfromLinesCord = ([v1, v2]) => {
-  return [
-    [xScale(v1[0]), yScale(v1[1])],
-    [xScale(v2[0]), yScale(v2[1])],
-  ];
-};
+let zoom;
+const buildingTypes = Object.entries(BUILDING_TYPES).map(([k, v]) => ({
+  label: v,
+  value: k,
+}));
 
-// TODO: 需要统一配置坐标
+// TODO: 把过程化变成封装为 OOP
 const TopoBuilding = () => {
+  const [zoomAction, setZoomAction] = useState("");
+  const [bType, setBType] = useState("");
+
   const addToolTip = () => {
     const tooltip = d3
       .select(`#${SVG_IDS.BUILDING}-container`)
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
-    const svg = d3.select("#geo");
+    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
     svg
       .selectAll(".building")
       .on("mouseover", function (d) {
         const data = d.srcElement.__data__;
-        console.log(data);
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip
           .html(
@@ -58,51 +63,100 @@ const TopoBuilding = () => {
           .style("left", d.offsetX + 10 + "px")
           .style("top", d.offsetY - 28 + "px");
       })
-      .on("mouseout", function (d) {
+      .on("mouseout", function () {
         tooltip.transition().duration(200).style("opacity", 0);
       });
   };
 
-  const addZoomBar = () => {
-    const svg = d3.select("#geo");
-    const zoom = d3
-      .zoom()
-      .wheelDelta(0) // 禁止鼠标滑动
-      .scaleExtent([0.5, 10]) // 设置缩放范围
-      .translateExtent([
-        [-width / 2, -height / 2],
-        [width / 2, height / 2],
-      ])
-      .on("zoom", (event) => {
-        // 在缩放时更新 SVG 元素的 transform 属性
-        // svg.attr("transform", event.transform);
-        const { transform } = event;
-        const scale = transform.k;
-        const x = transform.x;
-        const y = transform.y;
-
-        const maxX = ((scale - 1) * width) / 2;
-        const minX = -maxX;
-        const maxY = ((scale - 1) * height) / 2;
-        const minY = -maxY;
-
-        const tx = Math.max(Math.min(x, maxX), minX);
-        const ty = Math.max(Math.min(y, maxY), minY);
-
-        svg.attr("transform", `translate(${tx},${ty}) scale(${scale})`);
-      });
-    svg.call(zoom);
-
-    // 创建一个缩放控制工具条
-    const zoomBar = d3.select("#zoom-bar");
-    zoomBar.select("#zoom-in").on("click", () => {
-      // 在点击“放大”按钮时进行缩放
-      svg.transition().call(zoom.scaleBy, 1.2);
-    });
-    zoomBar.select("#zoom-out").on("click", () => {
-      // 在点击“缩小”按钮时进行缩放
+  const handleZoomAction = (event) => {
+    const action = event.target.value;
+    setZoomAction(action);
+    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
+    if (action == "in") {
       svg.transition().call(zoom.scaleBy, 0.8);
-    });
+    } else {
+      svg.transition().call(zoom.scaleBy, 1.2);
+    }
+  };
+  const handleChangeBType = (value) => {
+    setBType(value);
+    let points = [];
+    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
+    switch (value) {
+      case "APA":
+        points = apartmentLocations;
+        break;
+      case "EMP":
+        points = employerLocations;
+        break;
+      case "SPA":
+        points = spaceLocations;
+        break;
+      case "PUB":
+        points = pubLocations;
+        break;
+      case "RES":
+        points = restaurantLocations;
+        break;
+      case "SCH":
+        points = schoolLocations;
+        break;
+      default:
+        // 清除
+        svg.selectAll("ellipse").remove();
+    }
+    points = points.map(([x, y]) => [x, y, value]);
+    const ellipse = points.map(transformCordinate);
+    svg
+      .selectAll("ellipse")
+      .data(ellipse)
+      .enter()
+      .append("ellipse")
+      .attr("cx", (d) => d[0])
+      .attr("cy", (d) => d[1])
+      .attr("rx", 2)
+      .attr("ry", 2)
+      .attr("class", "buildings")
+      .style("fill", (d) => dotsCoulors(d[2]))
+      .attr("stroke", (d) => dotsCoulors(d[2]));
+  };
+
+  const addLegend = () => {
+    const legendData = [];
+    for (let [key, value] of Object.entries(buildingTypeColors)) {
+      legendData.push({ name: key, color: value });
+    }
+    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
+    const legend = svg
+      .selectAll(".legend")
+      .data(legendData)
+      .enter()
+      .append("g")
+      .attr("class", "legend")
+      .attr("transform", function (d, i) {
+        return "translate(-30," + (i * 20 + 30) + ")";
+      }); //transform属性便是整个图例的坐标
+
+    //绘制文字后方的颜色框或线
+    legend
+      .append("rect")
+      .attr("x", width - 25)
+      .attr("y", 8)
+      .attr("width", 40)
+      .attr("height", 3)
+      .style("fill", function (d) {
+        return d.color;
+      });
+
+    legend
+      .append("text")
+      .attr("x", width - 30)
+      .attr("y", 15)
+      .style("text-anchor", "end")
+      .style("font-size", "12px")
+      .text(function (d) {
+        return d.name;
+      });
   };
 
   const drawMap = () => {
@@ -112,7 +166,7 @@ const TopoBuilding = () => {
       .attr("width", containerWidth)
       .attr("height", containerHeight)
       .style("padding", "30px")
-      .attr("id", "geo")
+      .attr("id", SVG_IDS.BUILDING)
       .attr("viewbox", `-60 -60 ${width} ${height}`);
 
     const geoData = topojson.feature(building, building.objects.buildings);
@@ -202,20 +256,35 @@ const TopoBuilding = () => {
   };
 
   useEffect(() => {
-    const svg = document.getElementById("geo");
+    const svg = document.getElementById(SVG_IDS.BUILDING);
     if (!svg) {
       drawMap();
       addToolTip();
-      addZoomBar();
+      zoom = initZoom(SVG_IDS.BUILDING, width, height);
+      addLegend();
     }
   }, []);
 
   return (
     <>
-      <div id="zoom-bar">
-        <button id="zoom-in">zoom in</button>
-        <button id="zoom-out">zoom out</button>
-      </div>
+      <Space>
+        <Radio.Group value={zoomAction} onChange={handleZoomAction}>
+          <Radio.Button value="in">-</Radio.Button>
+          <Radio.Button value="out">+</Radio.Button>
+        </Radio.Group>
+        <span>Show Buildings</span>
+        <Select
+          defaultValue=""
+          value={bType}
+          style={{
+            width: 120,
+          }}
+          allowClear
+          options={buildingTypes}
+          onChange={handleChangeBType}
+        />
+      </Space>
+      <Divider />
       <div
         id="building-map-container"
         style={{

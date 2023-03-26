@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/antd": "^1.0.0",
+    "antd": "^5.3.2",
     "arquero": "^5.1.0",
     "d3": "^7.8.2",
     "react": "^18.2.0",
@@ -19,6 +21,8 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.36.0",
+    "eslint-plugin-react": "^7.32.2",
     "vite": "^4.2.0"
   }
 }

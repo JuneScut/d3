@@ -1,11 +1,14 @@
 import TopoBuilding from "./components/TopoBuilding";
-import RegionMap from "./components/RegionMap";
+import Rent from "./components/Rent";
+import React from "react";
+import { Divider } from "antd";
 
 function App() {
   return (
     <>
       <TopoBuilding />
-      <RegionMap />
+      <Divider />
+      <Rent />
     </>
   );
 }
