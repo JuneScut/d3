@@ -10,7 +10,8 @@
     "lint:js": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:prettier": "prettier -c --write \"src/**/*\"",
     "lint:style": "stylelint \"**/*.css\"",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.css": "stylelint \"**/*.css\"",
@@ -39,6 +40,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
     "stylelint-config-standard": "^31.0.0",
