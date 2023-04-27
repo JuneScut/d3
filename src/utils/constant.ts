@@ -13,12 +13,12 @@ export const margin = {
   right: 30,
   left: 30,
 };
-export const containerWidth = width + margin.left + margin.right;
+export const containerWidth = width + margin.left + margin.right + 50;
 export const containerHeight = height + margin.top + margin.bottm;
 
 export const SVG_IDS = {
   BUILDING: "building-map",
-  REGION: "region-map",
+  REGION: "region",
 };
 
 export const mapExtent = { minX: -5000, minY: -200, maxX: 2800, maxY: 8000 };
@@ -47,24 +47,24 @@ export const yScale = d3
 
 export const BUILDING_TYPES = {
   EMP: "employer",
-  APA: "apartment",
+  // APA: "apartment",
   RES: "restaurant",
   PUB: "pub",
   SCH: "school",
-  SPA: "space",
+  // SPA: "space",
 };
 
-export const opacity = 0.3;
+export const opacity = 0.6;
 export const dotsCoulors = (type) => {
   switch (type) {
     case "EMP":
-      return `rgba(166,93,52,${opacity})`;
+      return `rgba(112, 191, 229,${opacity})`;
     case "APA":
       return `rgba(59,119,175,${opacity})`;
     case "RES":
       return `rgba(235,92,47,${opacity})`;
     case "PUB":
-      return `rgba(209,53,43,${opacity})`;
+      return `rgba(169,76,175,${opacity})`;
     case "SCH":
       return `rgba(100,65,149,${opacity})`;
     case "SPA":

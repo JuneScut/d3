@@ -21,19 +21,19 @@ import {
   genGridLines,
   genXLabels,
   genYLabels,
-  initZoom,
   transfromLinesCord,
   transformCordinate,
 } from "../utils/utils";
-import { Divider, Radio, Select, Space } from "antd";
+import { Layout, Checkbox, Row, Col, Space } from "antd";
 import employerLocations from "../assets/locations/employerLocations.json";
 import spaceLocations from "../assets/locations/sapceLocations.json";
 import apartmentLocations from "../assets/locations/apartmentLocations.json";
 import pubLocations from "../assets/locations/pubLocations.json";
 import restaurantLocations from "../assets/locations/restaurantLocations.json";
 import schoolLocations from "../assets/locations/schoolLocations.json";
+import Sider from "antd/es/layout/Sider";
+import { Content } from "antd/es/layout/layout";
 
-let zoom;
 const buildingTypes = Object.entries(BUILDING_TYPES).map(([k, v]) => ({
   label: v,
   value: k,
@@ -41,8 +41,7 @@ const buildingTypes = Object.entries(BUILDING_TYPES).map(([k, v]) => ({
 
 // TODO: 把过程化变成封装为 OOP
 const TopoBuilding = () => {
-  const [zoomAction, setZoomAction] = useState("");
-  const [bType, setBType] = useState("");
+  const [bType, setBType] = useState([]);
 
   const addToolTip = () => {
     const tooltip = d3
@@ -68,18 +67,18 @@ const TopoBuilding = () => {
       });
   };
 
-  const handleZoomAction = (event) => {
-    const action = event.target.value;
-    setZoomAction(action);
-    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
-    if (action == "in") {
-      svg.transition().call(zoom.scaleBy, 0.8);
-    } else {
-      svg.transition().call(zoom.scaleBy, 1.2);
-    }
-  };
-  const handleChangeBType = (value) => {
-    setBType(value);
+  // const handleZoomAction = (event) => {
+  //   const action = event.target.value;
+  //   setZoomAction(action);
+  //   const svg = d3.select(`#${SVG_IDS.BUILDING}`);
+  //   if (action == "in") {
+  //     svg.transition().call(zoom.scaleBy, 0.8);
+  //   } else {
+  //     svg.transition().call(zoom.scaleBy, 1.2);
+  //   }
+  // };
+
+  const handleShowBuildingType = (value) => {
     let points = [];
     const svg = d3.select(`#${SVG_IDS.BUILDING}`);
     switch (value) {
@@ -114,11 +113,18 @@ const TopoBuilding = () => {
       .append("ellipse")
       .attr("cx", (d) => d[0])
       .attr("cy", (d) => d[1])
-      .attr("rx", 2)
-      .attr("ry", 2)
+      .attr("rx", 4)
+      .attr("ry", 4)
       .attr("class", "buildings")
       .style("fill", (d) => dotsCoulors(d[2]))
       .attr("stroke", (d) => dotsCoulors(d[2]));
+  };
+
+  const handleChangeBType = (values) => {
+    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
+    svg.selectAll("ellipse").remove();
+    setBType(values);
+    values.forEach((value) => handleShowBuildingType(value));
   };
 
   const addLegend = () => {
@@ -260,40 +266,59 @@ const TopoBuilding = () => {
     if (!svg) {
       drawMap();
       addToolTip();
-      zoom = initZoom(SVG_IDS.BUILDING, width, height);
+      // zoom = initZoom(SVG_IDS.BUILDING, width, height);
       addLegend();
     }
   }, []);
 
   return (
     <>
-      <Space>
-        <Radio.Group value={zoomAction} onChange={handleZoomAction}>
-          <Radio.Button value="in">-</Radio.Button>
-          <Radio.Button value="out">+</Radio.Button>
-        </Radio.Group>
-        <span>Show Buildings</span>
-        <Select
-          defaultValue=""
-          value={bType}
-          style={{
-            width: 120,
-          }}
-          allowClear
-          options={buildingTypes}
-          onChange={handleChangeBType}
-        />
-      </Space>
-      <Divider />
-      <div
-        id="building-map-container"
-        style={{
-          width: containerWidth + margin.left + margin.right,
-          height: containerHeight + margin.top + margin.bottm,
-          overflow: "hidden",
-          border: "1px solid #ccc",
-        }}
-      />
+      <Layout>
+        <Sider theme="light">
+          <Space
+            direction="vertical"
+            style={{
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {/* <span>Zoom</span>
+            <Radio.Group value={zoomAction} onChange={handleZoomAction}>
+              <Radio.Button value="in">-</Radio.Button>
+              <Radio.Button value="out">+</Radio.Button>
+            </Radio.Group> */}
+            <span>Buildings:</span>
+            <Checkbox.Group
+              style={{ width: "100%" }}
+              defaultValue={[""]}
+              onChange={handleChangeBType}
+              value={bType}
+            >
+              <Row>
+                {buildingTypes.map((item) => {
+                  return (
+                    <Col key={`show-buildings-type-${item.value}`} span={16}>
+                      <Checkbox value={item.value}>{item.label}</Checkbox>
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Checkbox.Group>
+          </Space>
+        </Sider>
+        <Content>
+          <div
+            id="building-map-container"
+            style={{
+              width: containerWidth + margin.left + margin.right,
+              height: containerHeight + margin.top + margin.bottm,
+              overflow: "hidden",
+              border: "1px solid #ccc",
+            }}
+          />
+        </Content>
+      </Layout>
     </>
   );
 };

@@ -65,7 +65,7 @@ export const initZoom = (svgId, width, height) => {
   }
   const zoom = d3
     .zoom()
-    // .wheelDelta(0) // 禁止鼠标滑动
+    .wheelDelta(0) // 禁止鼠标滑动
     .scaleExtent([0.5, 10]) // 设置缩放范围
     .translateExtent([
       [-width / 2, -height / 2],
