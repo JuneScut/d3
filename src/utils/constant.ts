@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 
 export const buildingTypeColors = {
-  Commercial: "rgba(200, 199, 200, 0.8)",
+  Commercial: "rgba(161,186,208,0.8)",
   Residential: "rgba(233, 201, 157, 0.8)",
   School: "rgba(154, 169, 244, 1)",
 };
