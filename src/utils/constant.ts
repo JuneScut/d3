@@ -64,7 +64,7 @@ export const dotsCoulors = (type) => {
     case "RES":
       return `rgba(235,92,47,${opacity})`;
     case "PUB":
-      return `rgba(169,76,175,${opacity})`;
+      return `rgba(102,102,51,${opacity})`;
     case "SCH":
       return `rgba(100,65,149,${opacity})`;
     case "SPA":
