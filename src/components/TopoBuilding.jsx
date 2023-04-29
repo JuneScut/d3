@@ -274,20 +274,15 @@ const TopoBuilding = () => {
   return (
     <>
       <Layout>
-        <Sider theme="light">
+        <Sider theme="light" width={360}>
           <Space
             direction="vertical"
             style={{
               height: "100%",
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "start",
             }}
           >
-            {/* <span>Zoom</span>
-            <Radio.Group value={zoomAction} onChange={handleZoomAction}>
-              <Radio.Button value="in">-</Radio.Button>
-              <Radio.Button value="out">+</Radio.Button>
-            </Radio.Group> */}
             <span>Buildings:</span>
             <Checkbox.Group
               style={{ width: "100%" }}

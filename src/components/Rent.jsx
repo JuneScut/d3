@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import {
+  boundaries,
+  boundaryTextPosition,
   containerHeight,
   containerWidth,
   mapExtent,
@@ -16,14 +18,17 @@ import { Layout, Space, Switch } from "antd";
 import jobs from "../assets/jobRows.json";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
+import BarGraph from "./BarGraph";
+import avgRent from "../assets/avgRents.json";
+import avgJobNums from "../assets/avgJobNum.json";
 
-const jobsLocations = jobs.map((row) => [row.locationX, row.locationY]);
-const jobCounts = jobs.map((row) => row.numJobs);
-const jobExtent = d3.extent(jobCounts);
-const jobColours = d3
-  .scaleSequential(d3.interpolateBlues)
-  .domain([0, jobExtent[1]]);
-const jobSize = d3.scaleSequentialSqrt().domain(jobExtent).range([3, 10]);
+// const jobsLocations = jobs.map((row) => [row.locationX, row.locationY]);
+// const jobCounts = jobs.map((row) => row.numJobs);
+// const jobExtent = d3.extent(jobCounts);
+// const jobColours = d3
+//   .scaleSequential(d3.interpolateBlues)
+//   .domain([0, jobExtent[1]]);
+// const jobSize = d3.scaleSequentialSqrt().domain(jobExtent).range([3, 10]);
 
 // job heat map
 const buildingJobs = [];
@@ -39,7 +44,7 @@ jobs.forEach((o) => {
 const Rent = () => {
   const [showRents, setShowRents] = useState(false);
   const [showJobHeatMap, setShowJobHeatMap] = useState(false);
-  const [showJobs, setShowJobs] = useState(false);
+  const [showBoundary, setShowBoundary] = useState(true);
 
   const geoData = topojson.feature(building, building.objects.buildings);
   const projection = d3
@@ -47,6 +52,43 @@ const Rent = () => {
     .reflectY(true)
     .fitSize([width, height], borderObj(mapExtent));
   let path = d3.geoPath(projection);
+
+  const showRegionBoundaries = () => {
+    const svg = d3.select("#region");
+    for (const key of Object.keys(boundaries)) {
+      const region = boundaries[key];
+      const cords = region.map((o) => transformCordinate(o));
+      const textPosition = transformCordinate(boundaryTextPosition[key]);
+      let boundary = "";
+      for (let i = 0; i < cords.length; i++) {
+        if (i === 0) {
+          boundary += `M ${cords[i][0]} ${cords[i][1]} `;
+        } else {
+          boundary += `L ${cords[i][0]} ${cords[i][1]} `;
+        }
+      }
+      boundary += "Z";
+      svg
+        .append("path")
+        .attr("d", boundary)
+        .attr("stroke", "black")
+        .attr("fill", "none")
+        .attr("class", "boundary");
+      svg
+        .append("text")
+        .attr("x", textPosition[0])
+        .attr("y", textPosition[1])
+        .attr("class", "boundary-text")
+        .attr("font-size", "16px")
+        .text(key);
+    }
+  };
+
+  const hideBoundaries = () => {
+    const svg = d3.select("#region");
+    svg.selectAll(`path.boundary`).remove();
+    svg.selectAll(`text.boundary-text`).remove();
+  };
 
   const drawMap = () => {
     d3.select(`#${SVG_IDS.REGION}-container`)
@@ -62,8 +104,6 @@ const Rent = () => {
   const renderGraph = (fillFunc) => {
     const svg = d3.select("#region");
     svg.selectAll(`path.building`).remove();
-    const jobsDots = svg.selectAll("ellipse.jobs");
-    jobsDots && jobsDots.remove();
 
     svg
       .selectAll("path")
@@ -75,10 +115,6 @@ const Rent = () => {
       .attr("stroke", "#ccc")
       .attr("stroke-width", 1)
       .attr("class", "building");
-
-    if (showJobs) {
-      showJobsLocations();
-    }
   };
 
   useEffect(() => {
@@ -104,26 +140,26 @@ const Rent = () => {
     }
   };
 
-  const showJobsLocations = () => {
-    const svg = d3.select("#region");
-    const ellipse = jobsLocations.map(transformCordinate);
-    svg
-      .selectAll("ellipse")
-      .data(ellipse)
-      .enter()
-      .append("ellipse")
-      .attr("cx", (d) => d[0])
-      .attr("cy", (d) => d[1])
-      .attr("rx", (_, i) => {
-        return jobSize(jobCounts[i]);
-      })
-      .attr("class", "jobs")
-      .style("fill", (_, i) => {
-        return jobColours(jobCounts[i]);
-      })
-      .attr("stroke", "black")
-      .attr("strokeWidth", 0.6);
-  };
+  // const showJobsLocations = () => {
+  //   const svg = d3.select("#region");
+  //   const ellipse = jobsLocations.map(transformCordinate);
+  //   svg
+  //     .selectAll("ellipse")
+  //     .data(ellipse)
+  //     .enter()
+  //     .append("ellipse")
+  //     .attr("cx", (d) => d[0])
+  //     .attr("cy", (d) => d[1])
+  //     .attr("rx", (_, i) => {
+  //       return jobSize(jobCounts[i]);
+  //     })
+  //     .attr("class", "jobs")
+  //     .style("fill", (_, i) => {
+  //       return jobColours(jobCounts[i]);
+  //     })
+  //     .attr("stroke", "black")
+  //     .attr("strokeWidth", 0.6);
+  // };
 
   const handleShowRents = (checked) => {
     setShowRents(checked);
@@ -133,15 +169,15 @@ const Rent = () => {
     setShowJobHeatMap(checked);
   };
 
-  const handleShowJobs = (checked) => {
-    setShowJobs(checked);
-    if (checked) {
-      showJobsLocations();
-    } else {
-      const svg = d3.select("#region");
-      svg.selectAll("ellipse.jobs").remove();
-    }
-  };
+  // const handleShowJobs = (checked) => {
+  //   setShowJobs(checked);
+  //   if (checked) {
+  //     showJobsLocations();
+  //   } else {
+  //     const svg = d3.select("#region");
+  //     svg.selectAll("ellipse.jobs").remove();
+  //   }
+  // };
 
   useEffect(() => {
     if (!showRents && !showJobHeatMap) {
@@ -151,18 +187,34 @@ const Rent = () => {
     }
   }, [showRents, showJobHeatMap]);
 
+  useEffect(() => {
+    if (showBoundary) {
+      showRegionBoundaries();
+    } else {
+      hideBoundaries();
+    }
+  }, [showBoundary]);
+
   return (
     <>
       <Layout>
-        <Sider theme="light">
+        <Sider theme="light" width={360}>
           <Space
             direction="vertical"
             style={{
               height: "100%",
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "start",
             }}
           >
+            <span>show region boundary: </span>
+            <Switch
+              defaultChecked={showBoundary}
+              checked={showBoundary}
+              onChange={() => {
+                setShowBoundary((show) => !show);
+              }}
+            />
             <span>show residental rents heatmap: </span>
             <Switch
               defaultChecked={false}
@@ -175,12 +227,28 @@ const Rent = () => {
               checked={showJobHeatMap}
               onChange={handleShowJobHeatMap}
             />
-            <span>show job opportinities: </span>
+            {/* <span>show job opportinities: </span>
             <Switch
               defaultChecked={false}
               checked={showJobs}
               onChange={handleShowJobs}
-            />
+            /> */}
+            {showRents && (
+              <BarGraph
+                containerId={"rents-container"}
+                title={"Average rent for each region"}
+                avgRent={avgRent}
+                color={"#ca3e47"}
+              />
+            )}
+            {showJobHeatMap && (
+              <BarGraph
+                containerId={"jobs-container"}
+                title={"Average job opportunities for each region"}
+                avgRent={avgJobNums}
+                color={"#79BEDB"}
+              />
+            )}
           </Space>
         </Sider>
         <Content>
@@ -190,7 +258,6 @@ const Rent = () => {
               width: containerWidth + margin.left + margin.right,
               height: containerHeight + margin.top + margin.bottm,
               overflow: "hidden",
-              border: "1px solid #ccc",
             }}
           />
         </Content>
