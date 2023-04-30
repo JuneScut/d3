@@ -7,6 +7,9 @@ import {
   containerWidth,
   mapExtent,
   SVG_IDS,
+  LEGEND,
+  rentsDomain,
+  jobsDomain,
 } from "../utils/constant";
 import * as d3 from "d3";
 import * as topojson from "topojson";
@@ -101,6 +104,40 @@ const Rent = () => {
     renderGraph(() => "white");
   };
 
+  const showColorLegend = (className, transform, domain, position) => {
+    const svg = d3.select("#region");
+    const legendWidth = 150;
+    const legendHeight = 20;
+
+    const legend = svg
+      .append("g")
+      .attr("class", className)
+      .attr("transform", `translate(${position[0]}, ${position[1]})`);
+
+    legend
+      .selectAll("rect")
+      .data(d3.range(0, legendWidth))
+      .enter()
+      .append("rect")
+      .attr("x", (d, i) => i)
+      .attr("y", 0)
+      .attr("width", 1)
+      .attr("height", legendHeight)
+      .attr("fill", transform);
+
+    legend.append("text").attr("x", 0).attr("y", 35).text(domain[0]);
+    legend
+      .append("text")
+      .attr("x", legendWidth - 20)
+      .attr("y", 35)
+      .text(domain[1]);
+  };
+
+  const hideColorLegend = (className) => {
+    const svg = d3.select("#region");
+    svg.selectAll(`g.${className}`).remove();
+  };
+
   const renderGraph = (fillFunc) => {
     const svg = d3.select("#region");
     svg.selectAll(`path.building`).remove();
@@ -115,6 +152,35 @@ const Rent = () => {
       .attr("stroke", "#ccc")
       .attr("stroke-width", 1)
       .attr("class", "building");
+
+    if (showRents) {
+      const legendScale = d3
+        .scaleSequential(d3.interpolateReds)
+        .domain(rentsDomain);
+
+      showColorLegend(
+        LEGEND.RENTS,
+        (d) => legendScale(d * 12 + 360),
+        rentsDomain,
+        [20, 700]
+      );
+    } else {
+      hideColorLegend(LEGEND.RENTS);
+    }
+
+    if (showJobHeatMap) {
+      const legendScale = d3
+        .scaleSequential(d3.interpolateBlues)
+        .domain(jobsDomain);
+      showColorLegend(
+        LEGEND.JOBS,
+        (d) => legendScale(d * 0.1),
+        jobsDomain,
+        [20, 750]
+      );
+    } else {
+      hideColorLegend(LEGEND.JOBS);
+    }
   };
 
   useEffect(() => {
@@ -128,11 +194,11 @@ const Rent = () => {
     const { buildingId } = d.properties;
     const buildingIdNum = +buildingId;
     if (showRents && rents[buildingIdNum]) {
-      return d3.scaleSequential(d3.interpolateReds).domain([360, 1500])(
+      return d3.scaleSequential(d3.interpolateReds).domain(rentsDomain)(
         rents[buildingIdNum]
       );
     } else if (showJobHeatMap && buildingJobs[buildingIdNum]) {
-      return d3.scaleSequential(d3.interpolateBlues).domain([0, 10])(
+      return d3.scaleSequential(d3.interpolateBlues).domain(jobsDomain)(
         buildingJobs[buildingIdNum]
       );
     } else {

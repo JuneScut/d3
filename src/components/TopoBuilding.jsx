@@ -294,7 +294,25 @@ const TopoBuilding = () => {
                 {buildingTypes.map((item) => {
                   return (
                     <Col key={`show-buildings-type-${item.value}`} span={16}>
-                      <Checkbox value={item.value}>{item.label}</Checkbox>
+                      <Checkbox
+                        value={item.value}
+                        style={{
+                          direction: "rtl",
+                        }}
+                      >
+                        {item.label}
+
+                        <span
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                            backgroundColor: dotsCoulors(item.value),
+                            borderRadius: "50%",
+                            display: "inline-block",
+                            marginRight: "10px",
+                          }}
+                        ></span>
+                      </Checkbox>
                     </Col>
                   );
                 })}

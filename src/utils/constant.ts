@@ -135,3 +135,11 @@ export const boundaryTextPosition = {
   6: [-1000, 800],
   7: [500, 200],
 };
+
+export const LEGEND = {
+  RENTS: "rents-legend",
+  JOBS: "jobs-legend",
+};
+
+export const rentsDomain = [360, 1500];
+export const jobsDomain = [0, 10];
