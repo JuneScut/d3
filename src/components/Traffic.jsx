@@ -27,6 +27,7 @@ import Row from "antd/es/row";
 import Spin from "antd/es/spin";
 import message from "antd/es/message";
 import Divider from "antd/es/divider";
+import Select from "antd/es/select";
 
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import trajectoryLegend from "../utils/trajectoryLegend";
@@ -85,8 +86,12 @@ function Traffic() {
   const [selectedTime, setSelectedTime] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-  const [showCommuteEfficiency, setShowCommuteEfficiency] = useState(false);
-  const commuteTrajectories = useRef([]);
+  const [curTraj, setCurTraj] = useState("");
+  const trajectories = useRef({
+    commute: [],
+    social: [],
+    toHome: [],
+  });
 
   const showFlowBubble = () => {
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
@@ -271,40 +276,45 @@ function Traffic() {
   };
 
   const loadCommuteTrajectories = () => {
-    if (commuteTrajectories.current.length > 0) {
-      return;
-    }
-    Promise.all([
-      d3.json(
-        `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com/commuteTrajectories.json`
-      ),
-    ]).then(([rawData]) => {
-      commuteTrajectories.current = rawData;
+    return new Promise((resolve) => {
+      if (!curTraj || trajectories.current[curTraj].length > 0) {
+        resolve(trajectories.current[curTraj]);
+      }
+      Promise.all([
+        d3.json(
+          `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com/${curTraj}Trajectories.json`
+        ),
+      ]).then(([rawData]) => {
+        trajectories.current[curTraj] = rawData;
+        resolve(rawData);
+      });
     });
   };
 
-  const showCommuteTrajectories = () => {
+  const showCommuteTrajectories = (data) => {
+    console.log({ data });
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
     const efficiencyColorScale = d3
       .scaleSequential(d3.interpolateViridis)
-      .domain(d3.extent(commuteTrajectories.current, (d) => d.efficiency));
+      .domain(d3.extent(data, (d) => d.efficiency));
 
-    commuteTrajectories.current.forEach((trajectoryData) => {
+    data.forEach((trajectoryData) => {
       svg
         .append("path")
         .attr("class", "commute-trajectory")
         .datum(trajectoryData.pts)
         .attr("d", lineGenerator)
         .attr("fill", "none")
-        .attr("stroke", (d) => efficiencyColorScale(trajectoryData.efficiency))
+        .attr("stroke", () => efficiencyColorScale(trajectoryData.efficiency))
         .attr("stroke-width", 0.5);
     });
   };
-  const showCommuteTrajectoriesLegend = () => {
+
+  const showCommuteTrajectoriesLegend = (data) => {
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
     const efficiencyColorScale = d3
       .scaleSequential(d3.interpolateViridis)
-      .domain(d3.extent(commuteTrajectories.current, (d) => d.efficiency));
+      .domain(d3.extent(data, (d) => d.efficiency));
     trajectoryLegend(efficiencyColorScale, svg, "commute-legend", {
       legendWidth: 240,
       legendHeight: 10,
@@ -347,7 +357,6 @@ function Traffic() {
     if (!svg) {
       drawMap();
     }
-    loadCommuteTrajectories();
   }, []);
 
   useEffect(() => {
@@ -361,14 +370,18 @@ function Traffic() {
   }, [showFlow]);
 
   useEffect(() => {
-    if (showCommuteEfficiency && commuteTrajectories.current) {
-      showCommuteTrajectories();
-      showCommuteTrajectoriesLegend();
+    if (curTraj) {
+      hideCommuteTrajectories();
+      hideCommuteTrajectoriesLegend();
+      loadCommuteTrajectories().then((data) => {
+        showCommuteTrajectories(data);
+        showCommuteTrajectoriesLegend(data);
+      });
     } else {
       hideCommuteTrajectories();
       hideCommuteTrajectoriesLegend();
     }
-  }, [showCommuteEfficiency, commuteTrajectories]);
+  }, [curTraj, trajectories.current[curTraj]]);
 
   return (
     <>
@@ -461,13 +474,20 @@ function Traffic() {
             <Divider />
             <div>
               <span>Show Efficency: </span>
-              <Switch
-                defaultChecked={showCommuteEfficiency}
-                checked={showCommuteEfficiency}
-                onChange={() => {
-                  setShowCommuteEfficiency((show) => !show);
+              <Select
+                allowClear
+                defaultValue=""
+                style={{ width: 120 }}
+                onChange={(v) => {
+                  setCurTraj(v);
                 }}
-              ></Switch>
+                value={curTraj}
+                options={[
+                  { value: "commute", label: "commute" },
+                  { value: "social", label: "social" },
+                  { value: "toHome", label: "toHome" },
+                ]}
+              />
             </div>
           </Space>
         </Sider>
