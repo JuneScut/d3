@@ -24,6 +24,9 @@ import Radio from "antd/es/radio";
 import Progress from "antd/es/progress";
 import Button from "antd/es/button";
 import Row from "antd/es/row";
+import Spin from "antd/es/spin";
+import message from "antd/es/message";
+
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Sider, Content } = Layout;
@@ -70,11 +73,13 @@ function Traffic() {
     week41: [],
     week61: [],
   });
-  const [curWeek, setCurWeek] = useState("week02");
+  const [curWeek, setCurWeek] = useState("");
   const [timeSliderValue, setTimeSliderValue] = useState(0);
   const [maxSlideValue, setMaxSlideValue] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [selectedTime, setSelectedTime] = useState(undefined);
+  const [loading, setLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const showFlowBubble = () => {
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
@@ -217,6 +222,8 @@ function Traffic() {
       immediate && drawFrameGraph(timeSliderValue, curWeek);
       return;
     }
+    console.log("loading week data", weekFileName);
+    setLoading(true);
     Promise.all([
       d3.csv(
         `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com//${weekFileName}.csv`
@@ -237,6 +244,7 @@ function Traffic() {
       const timeExtent = d3.extent(response, (d) => d.time);
       const timeTicks = d3.timeMinute.every(10).range(...timeExtent);
       setMaxSlideValue(timeTicks.length);
+      setLoading(false);
       immediate && drawFrameGraph(timeSliderValue, curWeek);
     });
   };
@@ -245,7 +253,6 @@ function Traffic() {
     if (curWeek) {
       playTimer && clearTimeout(playTimer);
       setTimeSliderValue(0);
-      // removeWeekCircles();
       setTimeout(() => {
         loadData(curWeek, playing);
       }, 0);
@@ -274,7 +281,6 @@ function Traffic() {
     if (!svg) {
       drawMap();
     }
-    loadData("week02", false);
   }, []);
 
   useEffect(() => {
@@ -305,7 +311,11 @@ function Traffic() {
             <Space>
               <Button
                 onClick={() => {
-                  setPlaying((playing) => !playing);
+                  if (curWeek) {
+                    setPlaying((playing) => !playing);
+                  } else {
+                    messageApi.warning("Please select a week first.");
+                  }
                 }}
               >
                 {playing ? "PAUSE" : "PLAY"}
@@ -353,7 +363,10 @@ function Traffic() {
                 );
               })}
             </Row>
-            <span>Selected Week: </span>
+            <div>
+              <span>Selected Week: </span>
+              {loading && <Spin />}
+            </div>
             <Radio.Group
               onChange={(target) => {
                 setCurWeek(target.target.value);
@@ -369,6 +382,7 @@ function Traffic() {
           </Space>
         </Sider>
         <Content>
+          {contextHolder}
           <div style={{ height: "20px", marginLeft: "10px" }}>
             {(playing || selectedTime) && (
               <h5>Period: {weekDateFormatter(selectedTime)}</h5>
