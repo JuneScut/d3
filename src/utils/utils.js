@@ -104,3 +104,11 @@ export const transfromLinesCord = ([v1, v2]) => {
 export const transformCordinate = ([x, y, type]) => {
   return [xScale(x), yScale(y), type];
 };
+
+export const transformFlowCord = ({ x, y, ...rest }) => {
+  return {
+    x: xScale(x),
+    y: yScale(y),
+    ...rest,
+  };
+};

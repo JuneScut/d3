@@ -327,7 +327,6 @@ const TopoBuilding = () => {
               width: containerWidth + margin.left + margin.right,
               height: containerHeight + margin.top + margin.bottm,
               overflow: "hidden",
-              border: "1px solid #ccc",
             }}
           />
         </Content>

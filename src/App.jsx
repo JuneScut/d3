@@ -2,6 +2,7 @@ import TopoBuilding from "./components/TopoBuilding";
 import Rent from "./components/Rent";
 import React from "react";
 import { Divider } from "antd";
+import Traffic from "./components/Traffic";
 
 function App() {
   return (
@@ -9,6 +10,8 @@ function App() {
       <TopoBuilding />
       <Divider />
       <Rent />
+      <Divider />
+      <Traffic />
     </>
   );
 }

@@ -19,6 +19,7 @@ export const containerHeight = height + margin.top + margin.bottm;
 export const SVG_IDS = {
   BUILDING: "building-map",
   REGION: "region",
+  TRAFFIC: "traffic",
 };
 
 export const mapExtent = { minX: -5000, minY: -200, maxX: 2800, maxY: 8000 };

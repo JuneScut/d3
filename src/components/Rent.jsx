@@ -17,13 +17,15 @@ import building from "../assets/buildings.json";
 import { width, height, margin } from "../utils/constant";
 import { borderObj, transformCordinate } from "../utils/utils";
 import rents from "../assets/buildingCost.json";
-import { Layout, Space, Switch } from "antd";
 import jobs from "../assets/jobRows.json";
-import Sider from "antd/es/layout/Sider";
-import { Content } from "antd/es/layout/layout";
+import Space from "antd/es/space";
+import Switch from "antd/es/switch";
+import Layout from "antd/es/layout";
 import BarGraph from "./BarGraph";
 import avgRent from "../assets/avgRents.json";
 import avgJobNums from "../assets/avgJobNum.json";
+
+const { Sider, Content } = Layout;
 
 // const jobsLocations = jobs.map((row) => [row.locationX, row.locationY]);
 // const jobCounts = jobs.map((row) => row.numJobs);
