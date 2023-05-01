@@ -217,26 +217,28 @@ function Traffic() {
       immediate && drawFrameGraph(timeSliderValue, curWeek);
       return;
     }
-    Promise.all([d3.csv(`/src/assets/weeks/${weekFileName}.csv`)]).then(
-      ([rawWeekData]) => {
-        const response = rawWeekData.map((d) => {
-          return {
-            ...d,
-            time: weekDateParser(d.time),
-            x: +d.x,
-            y: +d.y,
-          };
-        });
-        weekData.current = {
-          ...weekData.current,
-          [weekFileName]: response,
+    Promise.all([
+      d3.csv(
+        `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com//${weekFileName}.csv`
+      ),
+    ]).then(([rawWeekData]) => {
+      const response = rawWeekData.map((d) => {
+        return {
+          ...d,
+          time: weekDateParser(d.time),
+          x: +d.x,
+          y: +d.y,
         };
-        const timeExtent = d3.extent(response, (d) => d.time);
-        const timeTicks = d3.timeMinute.every(10).range(...timeExtent);
-        setMaxSlideValue(timeTicks.length);
-        immediate && drawFrameGraph(timeSliderValue, curWeek);
-      }
-    );
+      });
+      weekData.current = {
+        ...weekData.current,
+        [weekFileName]: response,
+      };
+      const timeExtent = d3.extent(response, (d) => d.time);
+      const timeTicks = d3.timeMinute.every(10).range(...timeExtent);
+      setMaxSlideValue(timeTicks.length);
+      immediate && drawFrameGraph(timeSliderValue, curWeek);
+    });
   };
 
   useEffect(() => {
