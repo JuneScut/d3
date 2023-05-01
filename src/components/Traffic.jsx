@@ -29,7 +29,11 @@ import message from "antd/es/message";
 import Divider from "antd/es/divider";
 import Select from "antd/es/select";
 
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  MinusOutlined,
+  PlusOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import trajectoryLegend from "../utils/trajectoryLegend";
 
 const { Sider, Content } = Layout;
@@ -71,6 +75,7 @@ const activityTypes = [
   },
 ];
 let playTimer;
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function Traffic() {
   const [showFlow, setShowFlow] = useState(false);
@@ -92,6 +97,7 @@ function Traffic() {
     social: [],
     toHome: [],
   });
+  const [loadingTraj, setLoadinTraj] = useState(false);
 
   const showFlowBubble = () => {
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
@@ -276,8 +282,9 @@ function Traffic() {
   };
 
   const loadCommuteTrajectories = () => {
+    setLoadinTraj(true);
     return new Promise((resolve) => {
-      if (!curTraj || trajectories.current[curTraj].length > 0) {
+      if (trajectories.current[curTraj].length > 0) {
         resolve(trajectories.current[curTraj]);
       }
       Promise.all([
@@ -374,6 +381,7 @@ function Traffic() {
       hideCommuteTrajectories();
       hideCommuteTrajectoriesLegend();
       loadCommuteTrajectories().then((data) => {
+        setLoadinTraj(false);
         showCommuteTrajectories(data);
         showCommuteTrajectoriesLegend(data);
       });
@@ -488,6 +496,9 @@ function Traffic() {
                   { value: "toHome", label: "toHome" },
                 ]}
               />
+              {loadingTraj && (
+                <Spin indicator={antIcon} style={{ marginLeft: "10px" }} />
+              )}
             </div>
           </Space>
         </Sider>
