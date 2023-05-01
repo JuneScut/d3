@@ -252,7 +252,6 @@ function Traffic() {
   useEffect(() => {
     if (curWeek) {
       playTimer && clearTimeout(playTimer);
-      setTimeSliderValue(0);
       setTimeout(() => {
         loadData(curWeek, playing);
       }, 0);
@@ -369,6 +368,7 @@ function Traffic() {
             </div>
             <Radio.Group
               onChange={(target) => {
+                setTimeSliderValue(0);
                 setCurWeek(target.target.value);
               }}
               value={curWeek}
