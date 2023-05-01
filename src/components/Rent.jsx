@@ -275,26 +275,33 @@ const Rent = () => {
               justifyContent: "start",
             }}
           >
-            <span>show region boundary: </span>
-            <Switch
-              defaultChecked={showBoundary}
-              checked={showBoundary}
-              onChange={() => {
-                setShowBoundary((show) => !show);
-              }}
-            />
-            <span>show residental rents heatmap: </span>
-            <Switch
-              defaultChecked={false}
-              checked={showRents}
-              onChange={handleShowRents}
-            />
-            <span>show jobs opportunites heatmap: </span>
-            <Switch
-              defaultChecked={false}
-              checked={showJobHeatMap}
-              onChange={handleShowJobHeatMap}
-            />
+            <div style={{ height: "50px" }}></div>
+            <Space>
+              <span>show region boundary </span>
+              <Switch
+                defaultChecked={showBoundary}
+                checked={showBoundary}
+                onChange={() => {
+                  setShowBoundary((show) => !show);
+                }}
+              />
+            </Space>
+            <Space>
+              <span>show residental rents heatmap: </span>
+              <Switch
+                defaultChecked={false}
+                checked={showRents}
+                onChange={handleShowRents}
+              />
+            </Space>
+            <Space>
+              <span>show jobs opportunites heatmap: </span>
+              <Switch
+                defaultChecked={false}
+                checked={showJobHeatMap}
+                onChange={handleShowJobHeatMap}
+              />
+            </Space>
             {/* <span>show job opportinities: </span>
             <Switch
               defaultChecked={false}

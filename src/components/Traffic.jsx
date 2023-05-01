@@ -26,8 +26,10 @@ import Button from "antd/es/button";
 import Row from "antd/es/row";
 import Spin from "antd/es/spin";
 import message from "antd/es/message";
+import Divider from "antd/es/divider";
 
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import trajectoryLegend from "../utils/trajectoryLegend";
 
 const { Sider, Content } = Layout;
 const geoData = topojson.feature(building, building.objects.buildings);
@@ -39,7 +41,10 @@ let path = d3.geoPath(projection);
 const maxFlow = d3.max(flow, (d) => d.congestion_idx);
 const weekDateParser = d3.timeParse("%Y-%m-%d %H:%M");
 const weekDateFormatter = d3.timeFormat("%Y-%m-%d %H:%M");
-
+const lineGenerator = d3
+  .line()
+  .x((d) => xScale(d[0]))
+  .y((d) => yScale(d[1]));
 const colorMap = {
   h: "#fe8041",
   s: "#0000c7",
@@ -80,6 +85,8 @@ function Traffic() {
   const [selectedTime, setSelectedTime] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [showCommuteEfficiency, setShowCommuteEfficiency] = useState(false);
+  const commuteTrajectories = useRef([]);
 
   const showFlowBubble = () => {
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
@@ -191,6 +198,7 @@ function Traffic() {
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
     const weekCircles = svg.selectAll(".week-circle");
     setSelectedTime(undefined);
+    setTimeSliderValue(0);
     weekCircles.remove();
   };
 
@@ -222,11 +230,10 @@ function Traffic() {
       immediate && drawFrameGraph(timeSliderValue, curWeek);
       return;
     }
-    console.log("loading week data", weekFileName);
     setLoading(true);
     Promise.all([
       d3.csv(
-        `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com//${weekFileName}.csv`
+        `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com/${weekFileName}.csv`
       ),
     ]).then(([rawWeekData]) => {
       const response = rawWeekData.map((d) => {
@@ -249,6 +256,74 @@ function Traffic() {
     });
   };
 
+  const increaseProgress = () => {
+    if (timeSliderValue < maxSlideValue) {
+      setTimeSliderValue(timeSliderValue + Math.floor(0.1 * maxSlideValue));
+    }
+  };
+
+  const declineProgress = () => {
+    if (timeSliderValue > 0) {
+      setTimeSliderValue(
+        Math.max(timeSliderValue - Math.floor(0.1 * maxSlideValue), 0)
+      );
+    }
+  };
+
+  const loadCommuteTrajectories = () => {
+    if (commuteTrajectories.current.length > 0) {
+      return;
+    }
+    Promise.all([
+      d3.json(
+        `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com/commuteTrajectories.json`
+      ),
+    ]).then(([rawData]) => {
+      commuteTrajectories.current = rawData;
+    });
+  };
+
+  const showCommuteTrajectories = () => {
+    const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
+    const efficiencyColorScale = d3
+      .scaleSequential(d3.interpolateViridis)
+      .domain(d3.extent(commuteTrajectories.current, (d) => d.efficiency));
+
+    commuteTrajectories.current.forEach((trajectoryData) => {
+      svg
+        .append("path")
+        .attr("class", "commute-trajectory")
+        .datum(trajectoryData.pts)
+        .attr("d", lineGenerator)
+        .attr("fill", "none")
+        .attr("stroke", (d) => efficiencyColorScale(trajectoryData.efficiency))
+        .attr("stroke-width", 0.5);
+    });
+  };
+  const showCommuteTrajectoriesLegend = () => {
+    const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
+    const efficiencyColorScale = d3
+      .scaleSequential(d3.interpolateViridis)
+      .domain(d3.extent(commuteTrajectories.current, (d) => d.efficiency));
+    trajectoryLegend(efficiencyColorScale, svg, "commute-legend", {
+      legendWidth: 240,
+      legendHeight: 10,
+      transformX: 10,
+      transformY: 720,
+      title: "Efficiency",
+    });
+  };
+
+  const hideCommuteTrajectories = () => {
+    const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
+    svg.selectAll("path.commute-trajectory").remove();
+  };
+
+  const hideCommuteTrajectoriesLegend = () => {
+    const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
+    svg.selectAll(".commute-legend").remove();
+  };
+
   useEffect(() => {
     if (curWeek) {
       playTimer && clearTimeout(playTimer);
@@ -267,19 +342,12 @@ function Traffic() {
     };
   }, [timeSliderValue, curWeek, playing]);
 
-  const increaseProgress = () => {
-    if (timeSliderValue < maxSlideValue) {
-      setTimeSliderValue(timeSliderValue + Math.floor(0.1 * maxSlideValue));
-    }
-  };
-
-  const declineProgress = () => {};
-
   useEffect(() => {
     const svg = document.getElementById(`${SVG_IDS.TRAFFIC}`);
     if (!svg) {
       drawMap();
     }
+    loadCommuteTrajectories();
   }, []);
 
   useEffect(() => {
@@ -292,12 +360,22 @@ function Traffic() {
     }
   }, [showFlow]);
 
+  useEffect(() => {
+    if (showCommuteEfficiency && commuteTrajectories.current) {
+      showCommuteTrajectories();
+      showCommuteTrajectoriesLegend();
+    } else {
+      hideCommuteTrajectories();
+      hideCommuteTrajectoriesLegend();
+    }
+  }, [showCommuteEfficiency, commuteTrajectories]);
+
   return (
     <>
       <Layout>
         <Sider theme="light" width={360}>
           <Space direction="vertical">
-            <div>
+            <div style={{ marginTop: "150px" }}>
               <span>Show Congestion: </span>
               <Switch
                 defaultChecked={showFlow}
@@ -307,6 +385,7 @@ function Traffic() {
                 }}
               ></Switch>
             </div>
+            <Divider />
             <Space>
               <Button
                 onClick={() => {
@@ -379,6 +458,17 @@ function Traffic() {
                 <Radio value={"week61"}>week61</Radio>
               </Space>
             </Radio.Group>
+            <Divider />
+            <div>
+              <span>Show Efficency: </span>
+              <Switch
+                defaultChecked={showCommuteEfficiency}
+                checked={showCommuteEfficiency}
+                onChange={() => {
+                  setShowCommuteEfficiency((show) => !show);
+                }}
+              ></Switch>
+            </div>
           </Space>
         </Sider>
         <Content>
