@@ -28,13 +28,16 @@ import Spin from "antd/es/spin";
 import message from "antd/es/message";
 import Divider from "antd/es/divider";
 import Select from "antd/es/select";
-
 import {
   MinusOutlined,
   PlusOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
 import trajectoryLegend from "../utils/trajectoryLegend";
+import LocalStorageSingleton, {
+  LocalStorageKeys,
+} from "../utils/localStorageSingleton";
+import localforage from "localforage";
 
 const { Sider, Content } = Layout;
 const geoData = topojson.feature(building, building.objects.buildings);
@@ -75,6 +78,8 @@ const activityTypes = [
   },
 ];
 let playTimer;
+const localStorageInstance = LocalStorageSingleton.getInstance();
+localforage.setDriver(localforage.INDEXEDDB);
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function Traffic() {
@@ -227,43 +232,55 @@ function Traffic() {
         const selectedTime = timeTicks[value + 1];
         setSelectedTime(selectedTime);
         const filteredData = data.filter(
-          (d) => d.time.getTime() === selectedTime.getTime()
+          (d) => d.time === selectedTime.getTime()
         );
         updateWeekCircles(filteredData);
-        // timeDisplay.text(selectedTime.toLocaleString());
       }
     }, 400);
   };
 
-  const loadData = (weekFileName, immediate = true) => {
-    if (weekData.current[weekFileName].length > 0) {
-      console.log("week data already loaded", weekData.current);
-      immediate && drawFrameGraph(timeSliderValue, curWeek);
-      return;
-    }
+  const loadData = () => {
     setLoading(true);
-    Promise.all([
-      d3.csv(
-        `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com/${weekFileName}.csv`
-      ),
-    ]).then(([rawWeekData]) => {
-      const response = rawWeekData.map((d) => {
-        return {
-          ...d,
-          time: weekDateParser(d.time),
-          x: +d.x,
-          y: +d.y,
-        };
+    return new Promise((resolve) => {
+      if (weekData.current[curWeek].length > 0) {
+        console.log("week data already loaded", weekData.current);
+        resolve(weekData.current[curWeek]);
+        return;
+      }
+      localforage.getItem(curWeek).then((cache) => {
+        if (cache) {
+          console.log("week data from indexdb");
+          const data = JSON.parse(cache);
+          weekData.current = {
+            ...weekData.current,
+            [curWeek]: data,
+          };
+          resolve(data);
+        } else {
+          console.log("send request to server");
+          Promise.all([
+            d3.csv(
+              `https://ellila-images-1253575386.cos.ap-nanjing.myqcloud.com/${curWeek}.csv`
+            ),
+          ]).then(([rawWeekData]) => {
+            const response = rawWeekData.map((d) => {
+              return {
+                ...d,
+                time: weekDateParser(d.time).getTime(),
+                x: +d.x,
+                y: +d.y,
+              };
+            });
+            weekData.current = {
+              ...weekData.current,
+              [curWeek]: response,
+            };
+            localforage.setItem(curWeek, JSON.stringify(response)).then(() => {
+              resolve(response);
+            });
+          });
+        }
       });
-      weekData.current = {
-        ...weekData.current,
-        [weekFileName]: response,
-      };
-      const timeExtent = d3.extent(response, (d) => d.time);
-      const timeTicks = d3.timeMinute.every(10).range(...timeExtent);
-      setMaxSlideValue(timeTicks.length);
-      setLoading(false);
-      immediate && drawFrameGraph(timeSliderValue, curWeek);
     });
   };
 
@@ -286,6 +303,14 @@ function Traffic() {
     return new Promise((resolve) => {
       if (trajectories.current[curTraj].length > 0) {
         resolve(trajectories.current[curTraj]);
+        return;
+      }
+      const cache = localStorageInstance.getItem(LocalStorageKeys[curTraj]);
+      if (cache) {
+        const data = JSON.parse(cache);
+        trajectories.current[curTraj] = data;
+        resolve(data);
+        return;
       }
       Promise.all([
         d3.json(
@@ -293,13 +318,16 @@ function Traffic() {
         ),
       ]).then(([rawData]) => {
         trajectories.current[curTraj] = rawData;
+        localStorageInstance.setItem(
+          LocalStorageKeys[curTraj],
+          JSON.stringify(rawData)
+        );
         resolve(rawData);
       });
     });
   };
 
   const showCommuteTrajectories = (data) => {
-    console.log({ data });
     const svg = d3.select(`#${SVG_IDS.TRAFFIC}`);
     const efficiencyColorScale = d3
       .scaleSequential(d3.interpolateViridis)
@@ -344,20 +372,26 @@ function Traffic() {
   useEffect(() => {
     if (curWeek) {
       playTimer && clearTimeout(playTimer);
-      setTimeout(() => {
-        loadData(curWeek, playing);
-      }, 0);
+      loadData().then((data) => {
+        setLoading(false);
+        const timeExtent = d3.extent(data, (d) => d.time);
+        console.log({ timeExtent });
+        const timeTicks = d3.timeMinute.every(10).range(...timeExtent);
+        playing && drawFrameGraph(timeSliderValue, curWeek);
+        setMaxSlideValue(timeTicks.length);
+      });
     }
   }, [curWeek, playing]);
 
   useEffect(() => {
+    console.log("useEffect timeSliderValue:", timeSliderValue);
     playing && drawFrameGraph(timeSliderValue, curWeek);
     return () => {
       if (playTimer) {
         clearTimeout(playTimer);
       }
     };
-  }, [timeSliderValue, curWeek, playing]);
+  }, [timeSliderValue, playing]);
 
   useEffect(() => {
     const svg = document.getElementById(`${SVG_IDS.TRAFFIC}`);
