@@ -537,9 +537,17 @@ function Traffic() {
         </Sider>
         <Content>
           {contextHolder}
-          <div style={{ height: "20px", marginLeft: "10px" }}>
+          <div
+            style={{
+              height: "30px",
+              marginLeft: "10px",
+              marginTop: "10px",
+              fontSize: "1.8em",
+              fontWeight: "bold",
+            }}
+          >
             {(playing || selectedTime) && (
-              <h5>Period: {weekDateFormatter(selectedTime)}</h5>
+              <span>Period: {weekDateFormatter(selectedTime)}</span>
             )}
           </div>
           <div
