@@ -277,6 +277,7 @@ const Rent = () => {
   const hideZones = () => {
     const svg = d3.select("#region");
     svg.selectAll("rect.route-zone").remove();
+    svg.selectAll("text.route-zone-text").remove();
   };
 
   useEffect(() => {
