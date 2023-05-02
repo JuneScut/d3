@@ -384,7 +384,6 @@ function Traffic() {
   }, [curWeek, playing]);
 
   useEffect(() => {
-    console.log("useEffect timeSliderValue:", timeSliderValue);
     playing && drawFrameGraph(timeSliderValue, curWeek);
     return () => {
       if (playTimer) {

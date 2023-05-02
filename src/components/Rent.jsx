@@ -10,6 +10,9 @@ import {
   LEGEND,
   rentsDomain,
   jobsDomain,
+  yScale,
+  xScale,
+  zones,
 } from "../utils/constant";
 import * as d3 from "d3";
 import * as topojson from "topojson";
@@ -50,6 +53,7 @@ const Rent = () => {
   const [showRents, setShowRents] = useState(false);
   const [showJobHeatMap, setShowJobHeatMap] = useState(false);
   const [showBoundary, setShowBoundary] = useState(true);
+  const [showRoutes, setShowRoutes] = useState(false);
 
   const geoData = topojson.feature(building, building.objects.buildings);
   const projection = d3
@@ -185,13 +189,6 @@ const Rent = () => {
     }
   };
 
-  useEffect(() => {
-    const svg = document.getElementById(SVG_IDS.REGION);
-    if (!svg) {
-      drawMap();
-    }
-  }, []);
-
   const fillFunc = (d) => {
     const { buildingId } = d.properties;
     const buildingIdNum = +buildingId;
@@ -247,6 +244,56 @@ const Rent = () => {
   //   }
   // };
 
+  const drawZones = () => {
+    const svg = d3.select("#region");
+    for (let idx = 0; idx < zones.length; idx++) {
+      const zone = zones[idx];
+      const cords = zone.map((o, i) => {
+        return i % 2 == 1 ? yScale(o) : xScale(o);
+      });
+      const [xMin, yMin, xMax, yMax] = cords;
+      const rect = svg
+        .append("rect")
+        .attr("x", xMax)
+        .attr("y", yMax)
+        .attr("width", Math.abs(xMax - xMin))
+        .attr("height", Math.abs(yMax - yMin))
+        .attr("fill", "rgba(154, 211, 94, 0.5)")
+        .attr("stroke", "black")
+        .attr("strokeWidth", 0.5)
+        .attr("class", "route-zone");
+      rect.raise();
+      const text = svg
+        .append("text")
+        .attr("class", "route-zone-text")
+        .attr("x", xMax)
+        .attr("y", yMax - 8)
+        .attr("font-size", "8px")
+        .text(`Route ${idx + 1}`);
+      text.raise;
+    }
+  };
+
+  const hideZones = () => {
+    const svg = d3.select("#region");
+    svg.selectAll("rect.route-zone").remove();
+  };
+
+  useEffect(() => {
+    if (showRoutes) {
+      drawZones();
+    } else {
+      hideZones();
+    }
+  }, [showRoutes]);
+
+  useEffect(() => {
+    const svg = document.getElementById(SVG_IDS.REGION);
+    if (!svg) {
+      drawMap();
+    }
+  }, []);
+
   useEffect(() => {
     if (!showRents && !showJobHeatMap) {
       renderGraph(() => "white");
@@ -300,6 +347,16 @@ const Rent = () => {
                 defaultChecked={false}
                 checked={showJobHeatMap}
                 onChange={handleShowJobHeatMap}
+              />
+            </Space>
+            <Space>
+              <span>show routes: </span>
+              <Switch
+                defaultChecked={showRoutes}
+                checked={showRoutes}
+                onChange={() => {
+                  setShowRoutes((show) => !show);
+                }}
               />
             </Space>
             {/* <span>show job opportinities: </span>
