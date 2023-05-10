@@ -15,8 +15,6 @@ import {
   SVG_IDS,
   BUILDING_TYPES,
   dotsCoulors,
-  boundaries,
-  boundaryTextPosition,
 } from "../utils/constant";
 import {
   borderObj,
@@ -25,6 +23,8 @@ import {
   genYLabels,
   transfromLinesCord,
   transformCordinate,
+  showRegionBoundaries,
+  hideBoundaries,
 } from "../utils/utils";
 import { Layout, Checkbox, Row, Col, Space } from "antd";
 import employerLocations from "../assets/locations/employerLocations.json";
@@ -265,48 +265,11 @@ const TopoBuilding = () => {
       .attr("text-anchor", "middle");
   };
 
-  const showRegionBoundaries = () => {
-    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
-    for (const key of Object.keys(boundaries)) {
-      const region = boundaries[key];
-      const cords = region.map((o) => transformCordinate(o));
-      const textPosition = transformCordinate(boundaryTextPosition[key]);
-      let boundary = "";
-      for (let i = 0; i < cords.length; i++) {
-        if (i === 0) {
-          boundary += `M ${cords[i][0]} ${cords[i][1]} `;
-        } else {
-          boundary += `L ${cords[i][0]} ${cords[i][1]} `;
-        }
-      }
-      boundary += "Z";
-      svg
-        .append("path")
-        .attr("d", boundary)
-        .attr("stroke", "black")
-        .attr("fill", "none")
-        .attr("class", "boundary");
-      svg
-        .append("text")
-        .attr("x", textPosition[0])
-        .attr("y", textPosition[1])
-        .attr("class", "boundary-text")
-        .attr("font-size", "16px")
-        .text(key);
-    }
-  };
-
-  const hideBoundaries = () => {
-    const svg = d3.select(`#${SVG_IDS.BUILDING}`);
-    svg.selectAll(`path.boundary`).remove();
-    svg.selectAll(`text.boundary-text`).remove();
-  };
-
   useEffect(() => {
     if (showBoundary) {
-      showRegionBoundaries();
+      showRegionBoundaries(SVG_IDS.BUILDING);
     } else {
-      hideBoundaries();
+      hideBoundaries(SVG_IDS.BUILDING);
     }
   }, [showBoundary]);
 

@@ -10,7 +10,12 @@ import {
   xScale,
   yScale,
 } from "../utils/constant";
-import { borderObj, transformFlowCord } from "../utils/utils";
+import {
+  borderObj,
+  transformFlowCord,
+  showRegionBoundaries,
+  hideBoundaries,
+} from "../utils/utils";
 import Layout from "antd/es/layout";
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
@@ -97,6 +102,8 @@ function Traffic() {
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [curTraj, setCurTraj] = useState("");
+  const [showBoundary, setShowBoundary] = useState(false);
+
   const trajectories = useRef({
     commute: [],
     social: [],
@@ -424,12 +431,30 @@ function Traffic() {
     }
   }, [curTraj, trajectories.current[curTraj]]);
 
+  useEffect(() => {
+    if (showBoundary) {
+      showRegionBoundaries(SVG_IDS.TRAFFIC);
+    } else {
+      hideBoundaries(SVG_IDS.TRAFFIC);
+    }
+  }, [showBoundary]);
+
   return (
     <>
       <Layout>
         <Sider theme="light" width={360}>
           <Space direction="vertical">
-            <div style={{ marginTop: "150px" }}>
+            <Space style={{ marginTop: "150px" }}>
+              <span>show region boundary </span>
+              <Switch
+                defaultChecked={showBoundary}
+                checked={showBoundary}
+                onChange={() => {
+                  setShowBoundary((show) => !show);
+                }}
+              />
+            </Space>
+            <div>
               <span>Show Congestion: </span>
               <Switch
                 defaultChecked={showFlow}

@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import {
-  boundaries,
-  boundaryTextPosition,
   containerHeight,
   containerWidth,
   mapExtent,
@@ -18,7 +16,11 @@ import * as d3 from "d3";
 import * as topojson from "topojson";
 import building from "../assets/buildings.json";
 import { width, height, margin } from "../utils/constant";
-import { borderObj, transformCordinate } from "../utils/utils";
+import {
+  borderObj,
+  showRegionBoundaries,
+  hideBoundaries,
+} from "../utils/utils";
 import rents from "../assets/buildingCost.json";
 import jobs from "../assets/jobRows.json";
 import Space from "antd/es/space";
@@ -61,43 +63,6 @@ const Rent = () => {
     .reflectY(true)
     .fitSize([width, height], borderObj(mapExtent));
   let path = d3.geoPath(projection);
-
-  const showRegionBoundaries = () => {
-    const svg = d3.select("#region");
-    for (const key of Object.keys(boundaries)) {
-      const region = boundaries[key];
-      const cords = region.map((o) => transformCordinate(o));
-      const textPosition = transformCordinate(boundaryTextPosition[key]);
-      let boundary = "";
-      for (let i = 0; i < cords.length; i++) {
-        if (i === 0) {
-          boundary += `M ${cords[i][0]} ${cords[i][1]} `;
-        } else {
-          boundary += `L ${cords[i][0]} ${cords[i][1]} `;
-        }
-      }
-      boundary += "Z";
-      svg
-        .append("path")
-        .attr("d", boundary)
-        .attr("stroke", "black")
-        .attr("fill", "none")
-        .attr("class", "boundary");
-      svg
-        .append("text")
-        .attr("x", textPosition[0])
-        .attr("y", textPosition[1])
-        .attr("class", "boundary-text")
-        .attr("font-size", "16px")
-        .text(key);
-    }
-  };
-
-  const hideBoundaries = () => {
-    const svg = d3.select("#region");
-    svg.selectAll(`path.boundary`).remove();
-    svg.selectAll(`text.boundary-text`).remove();
-  };
 
   const drawMap = () => {
     d3.select(`#${SVG_IDS.REGION}-container`)
@@ -305,9 +270,9 @@ const Rent = () => {
 
   useEffect(() => {
     if (showBoundary) {
-      showRegionBoundaries();
+      showRegionBoundaries(SVG_IDS.REGION);
     } else {
-      hideBoundaries();
+      hideBoundaries(SVG_IDS.REGION);
     }
   }, [showBoundary]);
 

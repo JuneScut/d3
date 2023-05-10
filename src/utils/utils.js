@@ -1,5 +1,11 @@
 import * as d3 from "d3";
-import { mapExtent, xScale, yScale } from "./constant";
+import {
+  mapExtent,
+  xScale,
+  yScale,
+  boundaries,
+  boundaryTextPosition,
+} from "./constant";
 
 export const genGridLines = () => {
   const gridLines = [];
@@ -111,4 +117,41 @@ export const transformFlowCord = ({ x, y, ...rest }) => {
     y: yScale(y),
     ...rest,
   };
+};
+
+export const showRegionBoundaries = (svgId) => {
+  const svg = d3.select(`#${svgId}`);
+  for (const key of Object.keys(boundaries)) {
+    const region = boundaries[key];
+    const cords = region.map((o) => transformCordinate(o));
+    const textPosition = transformCordinate(boundaryTextPosition[key]);
+    let boundary = "";
+    for (let i = 0; i < cords.length; i++) {
+      if (i === 0) {
+        boundary += `M ${cords[i][0]} ${cords[i][1]} `;
+      } else {
+        boundary += `L ${cords[i][0]} ${cords[i][1]} `;
+      }
+    }
+    boundary += "Z";
+    svg
+      .append("path")
+      .attr("d", boundary)
+      .attr("stroke", "black")
+      .attr("fill", "none")
+      .attr("class", "boundary");
+    svg
+      .append("text")
+      .attr("x", textPosition[0])
+      .attr("y", textPosition[1])
+      .attr("class", "boundary-text")
+      .attr("font-size", "16px")
+      .text(key);
+  }
+};
+
+export const hideBoundaries = (svgId) => {
+  const svg = d3.select(`#${svgId}`);
+  svg.selectAll(`path.boundary`).remove();
+  svg.selectAll(`text.boundary-text`).remove();
 };
